@@ -2,11 +2,11 @@ table.gridtable {
 
     font-family: Microsoft YaHei,arial,sans-serif;
 
-    font-size:11px;
+    font-size:13px;
 
     color:#272727;
 
-    border-width: 1px;
+    border-width: 2px;
 
     border-color: #272727;
 
@@ -16,7 +16,7 @@ table.gridtable {
 
 table.gridtable th {
 
-    border-width: 1px;
+    border-width: 3px;
 
     padding: 8px;
 
@@ -24,13 +24,13 @@ table.gridtable th {
 
     border-color: #ADADAD;
 
-    background-color: #dedede;
+    background-color: #00ffff;
     
 }
 
 table.gridtable td {
 
-    border-width: 1px;
+    border-width: 3px;
 
     padding: 8px;
 

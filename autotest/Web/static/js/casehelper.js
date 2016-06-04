@@ -182,10 +182,12 @@ function refresh_projects(){
 	jQuery.ajax({ 
 		type:"GET", 
 		url:"ajaxgetprojects", 
+		async: false,
 		data:"productline_id="+jQuery("#productline_id").val(), 
 		//beforeSend:select_script_loading,
 		success:refresh_projects_list
 		}) 
+	refresh_case();
 		
 }
 
@@ -199,6 +201,7 @@ function refresh_projects_list(data)
 	{
 		jQuery("#case_id").append("<option value="+result[i].caseid+">"+result[i].casename+"</option>")
 	}
+	//jQuery("#case_id").html("<option value="+result[0].case_id+">"+>result[0].case_name+"</option>")
 }
 
 //SLOTSLOT传参数传参数，选择case下拉的时候传参数吧
@@ -206,6 +209,7 @@ function refresh_case(){
 	jQuery.ajax({ 
 		type:"GET", 
 		url:"ajax_get_case", 
+		async: false,
 		data:"case_id="+jQuery("#case_id").val(), 
 		//beforeSend:select_script_loading,
 		success:refresh_case_list 

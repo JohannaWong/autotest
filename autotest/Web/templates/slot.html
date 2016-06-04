@@ -1,10 +1,20 @@
 $def with (finished,product_line,caseinfo,definfo)
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
-<title>wyyb</title>
+<title>zenjoy测试平台</title>
 
+<link rel="stylesheet" type="text/css" href="./static/css/theme.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/style1.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/tables.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/file.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/case.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/jqueryui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/jquery-ui-timepicker-addon.css" />
+<link rel="shortcut icon" href="./static/pic/favicon.ico">
+<link rel="stylesheet" href="./static/css/prettyCheckboxes.css" type="text/css" media="screen" />
 
 <script type="text/javascript" src="./static/js/jquery-1.7.2.min.js"></script>
 <script language=javascript type="text/javascript" src="./static/js/casehelper.js"></script>
@@ -26,8 +36,27 @@ $def with (finished,product_line,caseinfo,definfo)
 
 <body>
 
+
+<div id="container">
+  
+        <div id="header">
+            <h2>Zenjoy测试平台</h2>
+    <div id="topmenu">
+               <ul>
+                    <li class="current"><a href="slot">slot接口</a></li>
+                    <li><a href="slot2">接口测试2</a><li>
+                    <li><a href="alllink">导航</a></li>
+                    <li><a href="stress">性能测试</a></li>
+               </ul>
+        </div>
+    </div>
+
+</br>
+</br>
+
+<div id="box" style="padding-top: 50px;padding-left: 10px;padding-right: 10px;">
 <form id="form" onsubmit="return check()" method="POST" enctype="multipart/form-data" action="/execslot" name="myform" >
-productline:
+项目:
 <select id='productline_id' name="productline_id">
 $for i in product_line:
 	<option value="$i.id">$i.productline_name</option>
@@ -36,7 +65,7 @@ $for i in product_line:
 </br>
 
 
-case:
+关卡:
 <select id='case_id' name="case_id">
 $for i in caseinfo:
 	<option value="$i.caseid">$i.casename</option>
@@ -45,7 +74,7 @@ $for i in caseinfo:
 </br>
 
 
-def:
+Roll:
 <select id='def_id' name="def_id">
 $for i in definfo:
   <option value="$i.defid">$i.defname</option>
@@ -54,20 +83,20 @@ $for i in definfo:
 </br>
 
 
-playerid: <input type="text" name="playerid"><br>
-</br>
+playerid: <input type="text" name="playerid" style="text-align:left" color="#ffffff" bgcolor="#FFFFFF" font-family="Microsoft YaHei, Microsoft YaHei, Microsoft YaHei" font-size="16em"><br>
 </br>
 </br>
 
-<input type="submit" value="Submit">
+<input type="submit" class="btn_style_01" bgcolor="#1C86EE" value="开   始">
 
 </form>
+</div>
 
 </br>
 <br>
-
-  <table border=1">
-                    <thead>
+<div>
+  <table border=1" class="gridtable">
+                    <thead style="text-align:center">
                     <th>id</th>
                     <th>producid</th>
                     <th>caseid</th>
@@ -89,6 +118,7 @@ playerid: <input type="text" name="playerid"><br>
   						 </tbody>
 
 	        </table>
+          </div>
 
 
 </body>

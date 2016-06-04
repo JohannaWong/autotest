@@ -7,7 +7,7 @@
 }
 img, div,a { behavior: url(css/iepngfix.htc) }
 body{
-	font-size: 12px;
+	font-size: 14px;
 	font-family: Microsoft YaHei, Microsoft YaHei, Microsoft YaHei;
 }
 a, a:visited{
@@ -63,7 +63,7 @@ margin-top:20px;
 }
 #box h3{
 	padding:5px;
-	font-size:14px;
+	font-size:16px;
 }
 /*********************
 	Sidebar
@@ -189,7 +189,7 @@ a#defswitch {
 	height:10px;
 	margin: 3px 0 3px 0;
 	background-color:#080000;
-	font-size: 8px;
+	font-size: 10px;
 	color:#080000;
 	display:inline-block;
 }
@@ -198,7 +198,7 @@ a#blueswitch {
 	height:10px;
 	margin: 3px 0 3px 0;
 	background-color:#375b91;
-	font-size: 8px;
+	font-size: 10px;
 	color:#375b91;
 	display:inline-block;
 }
@@ -207,7 +207,7 @@ a#greenswitch {
 	height:10px;
 	margin: 3px 0 3px 0;
 	background-color:#d0e0b8;
-	font-size: 8px;
+	font-size: 10px;
 	color:#d0e0b8;
 	display:inline-block;
 }
@@ -216,7 +216,7 @@ a#brownswitch {
 	height:10px;
 	margin: 3px 0 3px 0;
 	background-color:#654322;
-	font-size: 8px;
+	font-size: 10px;
 	color:#654322;
 	display:inline-block;
 }
@@ -225,7 +225,7 @@ a#mixswitch {
 	height:10px;
 	margin: 3px 0 3px 0;
 	background-color:#294145;
-	font-size: 8px;
+	font-size: 10px;
 	color:#080000;
 	display:inline-block;
 }
@@ -262,26 +262,26 @@ thead{
 }
 #infobox h3{
 	padding:5px;
-	font-size:14px;
+	font-size:16px;
 }
 .margin-left{
 	margin-left:5px;
 }
 #rightnow .reallynow {
 	padding: 5px;
-	font-size:14px;
+	font-size:16px;
 }
 #rightnow h3{
 	padding:2px;
 	padding: 0 10px;
-	font-size:14px;
+	font-size:16px;
 }
 #rightnow .reallynow span {
 	display: block;
 	text-align: left;
 	float: left;
 	padding:0 2px;
-	font-size:14px
+	font-size:16px
 }
 #rightnow .reallynow a {
 	text-decoration:none;
@@ -291,13 +291,13 @@ thead{
 	padding:0 0 0 18px;
 	margin-left:4px;
 	font-weight:normal;
-	font-size:12px;
+	font-size:14px;
 }
 #rightnow .reallynow a:hover{
 	text-decoration:underline;
 }
 #rightnow .youhave {
-	font-size:  12px;
+	font-size:  14px;
 	padding: 10px;
 }
 #rightnow a {
@@ -324,7 +324,7 @@ form#form fieldset {
 	
 }
 form#form legend {
-	font-size:12px;
+	font-size:14px;
 	font-weight:bold;
 	margin-bottom:5px;
 	padding:3px;
@@ -429,7 +429,7 @@ form#form #button3:hover, form#form #button4:hover {
 	padding-left:19px;
 	text-decoration:none;
 	height:20px;
-	font-size:12x;
+	font-size:14x;
 	margin:0 3px;
 	display:inline-block;
 	line-height:20px;
@@ -458,3 +458,13 @@ form#form #button3:hover, form#form #button4:hover {
 .report_seo{background:transparent url(../img/icons/report_link.png) no-repeat left;}
 .modules{background:transparent url(../img/icons/bricks.png) no-repeat left;}
 .modules_manage{background:transparent url(../img/icons/bricks_gear.png) no-repeat left;}
+.btn_style_01{
+	border-style:none;
+    padding:20px 30px;
+    line-height:24px;
+    color:#1C86EE;
+    font:16px "Microsoft YaHei", Verdana, Geneva, sans-serif;
+    border:3px #1C86EE solid;
+    border-radius:4px;/*边框圆角*/
+    background-color:#1C86EE;
+}

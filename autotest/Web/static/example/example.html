@@ -1,0 +1,31 @@
+<html>
+<font  face="Microsoft YaHei" size="3px">
+#coding: utf-8<br />
+import time<br />
+
+class Transaction(object):<br /><br />
+
+&nbsp&nbsp&nbsp def __init__(self):<br /><br />
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp self.custom_timers = {}<br /><br />
+    
+
+&nbsp&nbsp&nbsp def run(self):<br /><br />
+        
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp start_timer = time.time()<br /><br />
+      
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <font color="red">#此区域写接口的业务逻辑</font><br /><br />
+       
+
+&nbsp&nbsp&nbsp latency = time.time() - start_timer<br /><br />
+
+&nbsp&nbsp&nbsp self.custom_timers['Example_Homepage'] = latency<br /><br />
+        
+&nbsp&nbsp&nbsp <font color="red">#此区域判断接口的返回值与HTTP返回码，日志路径统一规定为绝对路径D:\dongdong3\webpy\com\static\log\error.log</font><br /><br />
+       
+
+if __name__ == '__main__':<br /><br />
+&nbsp&nbsp&nbsptrans = Transaction()<br /><br />
+&nbsp&nbsp&nbsptrans.run()<br /><br />
+&nbsp&nbsp&nbspprint trans.custom_timers<br /><br />
+</font>
+</html>

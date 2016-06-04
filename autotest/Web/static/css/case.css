@@ -1,0 +1,216 @@
+.search-popup-window {
+    background: none repeat scroll 0 0 padding-box rgba(0, 0, 0, 0.25);/*padding-box 边框背景 rgba颜色跟透明度*/
+    border-radius: 3px;  /*边框圆角，不支持IE*/
+    overflow: hidden;
+    padding: 8px;
+    position: fixed;
+    _position: absolute;/*支持IE6浮动定位*/
+    z-index: 1;
+    display:none;
+}
+
+.search-popup-wrapper, .search-popup-window-wrapper {
+    background-color: #FFFFFF;
+    border: 1px solid #080000;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.search-popup-window .hd {
+    -moz-user-select: none;
+    background: url("http://img04.taobaocdn.com/tps/i4/T1MBVHXjdeXXXXXXXX.png") repeat-x scroll 0 -1267px #FFFFFF;
+    height: 33px;
+    position: relative;
+    z-index: 3;
+}
+.search-popup-window .hd h4 {
+    -moz-user-select: none;
+    color: #333333;
+    font-size: 14px;
+    font-weight: normal;
+    left: 20px;
+    position: absolute;
+    top: -10px;
+    _top: 8px;
+}
+.search-popup-window .hd .closeButton {
+    background: url("http://img02.taobaocdn.com/tps/i2/T1ovpYXdtyXXXXXXXX-260-700.png") no-repeat scroll -77px -578px transparent;
+    display: block;
+    height: 26px;
+    overflow: hidden;
+    position: absolute;
+    right: 7px;
+    text-indent: -9999px;
+    top: 7px;
+    width: 22px;
+    z-index: 10001;
+}
+.search-popup-window .hd .closeButton:hover {
+    background-position: -55px -578px;
+}
+.search-popup-window .bd {
+    background: none repeat scroll 0 0 #FFFFFF;
+    display: block;
+    overflow: hidden;
+    padding: 5px 20px 14px;
+    position: relative;
+    z-index: 2;
+}
+.dialog-login .bd {
+    height: auto;
+    padding: 0;
+}
+
+form{
+	padding:0px;
+	margin:0 auto;
+	cursor:hand;
+	font-style:normal;
+	border-radius:8px;
+}
+form#form fieldset {
+	display:block;
+	padding:5px 10px 5px 10px;
+	line-height:20px;
+	margin-bottom:10px;
+	cursor:hand;
+	font-style:normal;
+	border-radius:8px;
+	
+}
+form#form legend {
+	font-size:12px;
+	font-weight:bold;
+	margin-bottom:5px;
+	padding:3px;
+	width:254px;
+	cursor:hand;
+	font-style:normal;
+	border-radius:8px;
+}
+form#form label {
+	clear:left;
+	display:block;
+	float:left;
+	width:100px;
+	text-align:right;
+	padding-right:10px;
+	margin-bottom:5px;
+	cursor:hand;
+	font-style:normal;
+	border-radius:8px;
+}
+form#form input {
+	padding:3px;
+	margin-bottom:5px;
+	cursor:hand;
+	font-style:normal;
+	border-radius:8px;
+}
+
+form#form radio{
+	-webkit-appearance:none;
+	width:16px;
+	height:16px;
+	border:#DBDBDB 1px solid;
+	border-radius:8px;
+	background:#FFF;
+}
+input[type=radio]:hover,input[type=radio]:checked{
+	background:url(icon.png) -4px -4px;	
+}
+
+form#form select {
+	margin-left:5px;
+	cursor:hand;
+	font-style:normal;
+	border-radius:8px;
+}
+form#form textarea {
+	width:410px;
+	height:200px;
+	padding:5px;
+	overflow:auto;
+	cursor:hand;
+	font-style:normal;
+	border-radius:8px;
+}
+form#form option {
+	background:#FFF;
+	cursor:hand;
+	font-style:normal;
+	border-radius:8px;
+}
+form#form optgroup option {
+
+}
+form#form #button1, form#form #button2 {
+	padding-right:10px;
+	width:180px;
+	margin-left:10px;
+	font-weight:bold;
+	font-family:Microsoft YaHei;
+	cursor:hand;
+	font-style:normal;
+	border-radius:8px;
+}
+form#form #button1:hover, form#form #button2:hover {
+	background-position:center left;
+}
+
+
+/***********button**********
+***************************/
+form#form #button3,form#form #button3{
+	padding-right:5px;
+	cursor:pointer;
+	width:60px;
+	margin-left:1px;
+	font-family:Microsoft YaHei;
+	cursor:hand;
+	font-style:normal;
+	border-radius:10px;
+
+}
+
+form#form #button3:hover, form#form #button4:hover {
+	background-position:center left;
+}
+
+/*********************
+	Icons
+*********************/
+.icon{
+	padding-left:19px;
+	text-decoration:none;
+	height:20px;
+	font-size:12x;
+	margin:0 3px;
+	display:inline-block;
+	line-height:20px;
+}
+.user{background:transparent url(../img/icons/user.png) no-repeat left;}
+.useradd{background:transparent url(../img/icons/user_add.png) no-repeat left;}
+.group{background:transparent url(../img/icons/group.png) no-repeat left;}
+.search{background:transparent url(../img/icons/magnifier.png) no-repeat left;}
+.online{background:transparent url(../img/icons/world.png) no-repeat left;}
+.pagenew{background:transparent url(../img/icons/page_add.png) no-repeat left;}
+.rss{background:transparent url(../img/icons/rss.png) no-repeat left;}
+.feed{background:transparent url(../img/icons/feed.png) no-repeat left;}
+.report{background:transparent url(../img/icons/report.png) no-repeat left;}
+.house{background:transparent url(../img/icons/house.png) no-repeat left;}
+.manage{background:transparent url(../img/icons/cog.png) no-repeat left;}
+.manage_page{background:transparent url(../img/icons/page_gear.png) no-repeat left;}
+.folder{background:transparent url(../img/icons/folder.png) no-repeat left;}
+.promotions{background:transparent url(../img/icons/coins.png) no-repeat left;}
+.cart{background:transparent url(../img/icons/cart.png) no-repeat left;}
+.folder_table{background:transparent url(../img/icons/folder_page.png) no-repeat left;}
+.shipping{background:transparent url(../img/icons/car.png) no-repeat left;}
+.invoices{background:transparent url(../img/icons/page_white_text_width.png) no-repeat left;}
+.addorder{background:transparent url(../img/icons/folder_page_add.png) no-repeat left;}
+.add{background:transparent url(../img/icons/add.png) no-repeat left;}
+.app_add{background:transparent url(../img/icons/application_add.png) no-repeat left;}
+.report_seo{background:transparent url(../img/icons/report_link.png) no-repeat left;}
+.modules{background:transparent url(../img/icons/bricks.png) no-repeat left;}
+.modules_manage{background:transparent url(../img/icons/bricks_gear.png) no-repeat left;}

@@ -1,0 +1,96 @@
+$def with (finished,product_line,caseinfo,definfo)
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title>wyyb</title>
+
+
+<script type="text/javascript" src="./static/js/jquery-1.7.2.min.js"></script>
+<script language=javascript type="text/javascript" src="./static/js/casehelper.js"></script>
+
+<script type="text/javascript">
+  function check(){
+    var userid = document.getElementsByName("playerid");  //playerid 检测
+    if (userid[0].value==0){
+      alert("看不见  playerId  没写么？？？？")
+    return false; 
+     } 
+  }
+</script>
+
+
+</head>
+
+
+
+<body>
+
+<form id="form" onsubmit="return check()" method="POST" enctype="multipart/form-data" action="/execslot" name="myform" >
+productline:
+<select id='productline_id' name="productline_id">
+$for i in product_line:
+	<option value="$i.id">$i.productline_name</option>
+</select>
+</br>
+</br>
+
+
+case:
+<select id='case_id' name="case_id">
+$for i in caseinfo:
+	<option value="$i.caseid">$i.casename</option>
+</select>
+</br>
+</br>
+
+
+def:
+<select id='def_id' name="def_id">
+$for i in definfo:
+  <option value="$i.defid">$i.defname</option>
+</select>
+</br>
+</br>
+
+
+playerid: <input type="text" name="playerid"><br>
+</br>
+</br>
+</br>
+
+<input type="submit" value="Submit">
+
+</form>
+
+</br>
+<br>
+
+  <table border=1">
+                    <thead>
+                    <th>id</th>
+                    <th>producid</th>
+                    <th>caseid</th>
+                    <th>defid</th>
+					<th>playerid</th>
+                    <th>result</th>
+                    
+    				</thead>				                                                                  
+  					$for todo in finished:
+  						 <tbody>
+  						 <tr>
+  						 <td>$todo.taskid</td>
+  						 <td>$todo.productline_name</td>
+  						 <td>$todo.casename</td>
+						 <td>$todo.defname</td>
+						 <td>$todo.playerid</td>
+						 <td>$todo.result</td>
+  						 </tr>
+  						 </tbody>
+
+	        </table>
+
+
+</body>
+
+</html>

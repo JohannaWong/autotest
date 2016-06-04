@@ -1,0 +1,16 @@
+select{ background-color: #cfdfef; FONT: 12px/150% "Lucida Grande", Arial, Verdana, Helvetica, sans-serif}
+a{ text-decoration:none;outline:none;hide-focus:expression(this.hideFocus=true);}
+.selectBox{width:100px}
+.selectBox a{
+display:block; background:url(http://www.codefans.net/jscss/demoimg/201110/selectBG.gif) left top;padding-left:-5px; color:#79a2bd;
+line-height:24px!important;line-height:50px;height:24px; overflow:hidden;
+}
+.selectBox a:hover{background-position:left -24px}
+.selectBox a:hover.open,.selectBox a.open{background-position:left -48px}
+.selectBox p{
+margin:0; padding:0;display:none; position: absolute; width:50px;
+background:url(selectBG.gif) left bottom; padding-bottom:6px;
+}
+.selectBox p a{background-position:left -160px}
+.selectBox p a.current{background-position:left -96px; color:#fff}
+.selectBox p a:hover{background-position:left -72px; color:#fff}

@@ -1,2 +1,3 @@
 import luckywin
 import simvegas
+import check_case

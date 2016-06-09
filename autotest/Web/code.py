@@ -1,6 +1,7 @@
 #-*- encoding:utf-8 -*-
 import tests
 import tests.luckywin
+import tests.check_case
 import web
 from Common import *
 import Common.dbconn
@@ -19,11 +20,12 @@ urls=(
       '/slot','slot',
       '/execslot','execslot',
       '/ajaxgetprojects','ajaxgetprojects',
-      '/ajax_get_case','ajax_get_case')
+      '/ajax_get_case','ajax_get_case',
+      '/ajax_check_case','ajax_check_case',
+      '/ajax_ReSubmit','ajax_ReSubmit')
 
 m_config = gl.GL_CONFIG
 render=web.template.render('templates/')
-
 
 #class index:
   #  def GET(self):
@@ -61,8 +63,7 @@ class execslot:
 
     #gl.GL_WEBINPUT=web.input()
 
-    def get_productline(self):
-        gl.GL_WEBINPUT=web.input()
+    def get_productline(self,productid):
         productline_id = gl.GL_WEBINPUT.productline_id
         test_url = gl.GL_DB.query("select productline_url from productline where id = " + productline_id )
         url = []
@@ -71,8 +72,7 @@ class execslot:
             url.append(item_dict1)
         return url[0]
 
-    def get_product_name(self):
-        gl.GL_WEBINPUT=web.input()
+    def get_product_name(self,productid):
         productline_id = gl.GL_WEBINPUT.productline_id
         test_name = gl.GL_DB.query("select  productline_name from productline where id = " + productline_id )
         name = []
@@ -83,8 +83,7 @@ class execslot:
        # print name[0]
         return name[0]
 
-    def get_case_name(self):
-        gl.GL_WEBINPUT=web.input()
+    def get_case_name(self,caseid):
         test_case = gl.GL_DB.query("select * from cases where caseid=" + gl.GL_WEBINPUT.case_id )
         result = []
         for item in test_case:
@@ -92,8 +91,7 @@ class execslot:
             result.append(item_dict)
         return result[0] 
 
-    def get_def_name(self):
-        gl.GL_WEBINPUT=web.input()
+    def get_def_name(self,defid):
 
         if gl.GL_WEBINPUT.def_id =="1":     
              return "all"
@@ -111,13 +109,13 @@ class execslot:
         player_id = gl.GL_WEBINPUT.playerid 
         return player_id 
 
-    def do_case(self):
-        gl.GL_WEBINPUT=web.input()
-        project_name=self.get_product_name()    #项目名
-        test_url=self.get_productline()            #项目对应的测试地址
-        case_name = self.get_case_name()       #case脚本名
-        def_name = self.get_def_name()         #case中对应函数名
-        player_id = self.get_playerid()               #玩家id
+    def do_case(self,project_name,case_name,def_name,player_id): #执行用例
+        test_productline_url = gl.GL_DB.query("select productline_url from productline where productline_name='%s' "%project_name)
+        url = []
+        for item in test_productline_url:
+            item_dict1 = item.productline_url
+            url.append(item_dict1)
+        test_url = url[0]
 
         if def_name == "all":           #如果选择all
             test_def = gl.GL_DB.query("select * from def where caseid=" + gl.GL_WEBINPUT.case_id )
@@ -127,55 +125,89 @@ class execslot:
                 def_name = item.defname
                 def_id = item.defid
                 print def_name
-                f = getattr(getattr(getattr(tests, project_name), case_name), def_name) 
-                result = f(player_id,test_url)
-                gl.GL_DB.insert('tasks',productid=gl.GL_WEBINPUT.productline_id,caseid=gl.GL_WEBINPUT.case_id,defid=def_id,playerid=gl.GL_WEBINPUT.playerid,result=result)
-                print "11111111111111"
-                print result
-
+                try:
+                    f = getattr(getattr(getattr(tests, project_name), case_name), def_name) 
+                    result = f(player_id,test_url)
+                    gl.GL_DB.insert('tasks',productid=gl.GL_WEBINPUT.productline_id,caseid=gl.GL_WEBINPUT.case_id,defid=def_id,playerid=gl.GL_WEBINPUT.playerid,result=result)
+                    pass
+                except Exception, e:
+                    print e
 
         else:
-            f = getattr(getattr(getattr(tests, project_name), case_name), def_name) 
+            f = getattr(getattr(getattr(tests, project_name), case_name), def_name)      #从tests文件夹里选取项目，case以及def
             result = f(player_id,test_url)
-            print str(f)
-            print type(result)
-            print "wolegequwolegequ"
-            print result
-            gl.GL_DB.insert('tasks',productid=gl.GL_WEBINPUT.productline_id,caseid=gl.GL_WEBINPUT.case_id,defid=gl.GL_WEBINPUT.def_id,playerid=gl.GL_WEBINPUT.playerid,result=result)
+            print "l o V e U~"
+            productline_id=gl.GL_DB.query("select id from productline where productline_name='%s'" %project_name)
+
+            for i in productline_id:
+                productline_id=int(i.id)
+            case_id=gl.GL_DB.query("select caseid from cases where casename='%s' and productid='%d'"  % (case_name,productline_id))
+
+            for j in case_id:
+                case_id=int(j.caseid)
+            def_id=gl.GL_DB.query("select defid from def where defname='%s' and caseid='%d'" % (def_name,case_id) )
+
+            for k in def_id:
+                def_id=int(k.defid)
+            playerid=player_id
+
+            gl.GL_DB.insert('tasks',productid=productline_id,caseid=case_id,defid=def_id,playerid=playerid,result=result)
 
 
-    def POST(self):
+    def POST(self):  #获取从页面输入的值
+        gl.GL_WEBINPUT=web.input()
+        project_name=self.get_product_name(gl.GL_WEBINPUT.productline_id)    #项目名
+        test_url=self.get_productline(gl.GL_WEBINPUT.productline_id)            #项目对应的测试地址
+        case_name = self.get_case_name(gl.GL_WEBINPUT.case_id)       #case脚本名
+        def_name = self.get_def_name(gl.GL_WEBINPUT.def_id)         #case中对应函数名
+        player_id = self.get_playerid()               #玩家id
 
-        self.do_case()
+        self.do_case(project_name,case_name,def_name,player_id)
         raise web.seeother('/slot') 
 
 class ajaxgetprojects:   #页面根据项目联动case
     def GET(self):
         gl.GL_WEBINPUT=web.input()
-        print "***********"
         caseslist = gl.GL_DB.query("select * from cases where productid=" + gl.GL_WEBINPUT.productline_id)
         result = []
         for item in caseslist:
             item_dict = {"caseid":item.caseid,"casename":item.casename}
             result.append(item_dict)
-        #print result
-        print "############"
         encodedjson = json.dumps(result)
         return encodedjson
 
 class ajax_get_case:     #页面根据case联动def
     def GET(self):
         gl.GL_WEBINPUT=web.input()
-        print "***********"
+        print "so cool ,i like this page~~~ wahahahah"
         caseslist = gl.GL_DB.query("select * from def where caseid=" + gl.GL_WEBINPUT.case_id)
         result = []
         for item in caseslist:
             item_dict = {"defid":item.defid,"defname":item.defname}
             result.append(item_dict)
         #print result
-        print "############"
+        print "why do u made it until 6/4 morning 5:51???????????"
         encodedjson = json.dumps(result)
         return encodedjson
+
+class ajax_check_case:     #初始化case
+    def GET(self):
+        c2=tests.check_case.checkcase()
+        c2.getfilename()
+
+
+class ajax_ReSubmit:       #从结果中提交
+    def POST(self):
+        gl.GL_WEBINPUT=web.input()
+        project_name=web.input().product_name
+        case_name=web.input().case_name
+        def_name=web.input().def_name
+        player_id=web.input().playerid
+        print case_name
+        print project_name
+
+        execslot().do_case(project_name,case_name,def_name,player_id)
+
     
 #读web.conf文件
 def _init_config():

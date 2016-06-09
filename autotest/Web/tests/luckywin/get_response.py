@@ -2,9 +2,11 @@
 import json
 import urllib
 import urllib2
+import socket
 #import nose.tools 
 from collections import OrderedDict
 
+socket.setdefaulttimeout(0) 
 
 def Post_response(url,data):
     post_data = urllib.urlencode(data)

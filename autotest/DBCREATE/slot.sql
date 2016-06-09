@@ -29,6 +29,7 @@ CREATE TABLE `cases` (
 #
 # Dumping data for table cases
 #
+truncate table cases;
 
 LOCK TABLES `cases` WRITE;
 /*!40000 ALTER TABLE `cases` DISABLE KEYS */;
@@ -62,6 +63,7 @@ CREATE TABLE `def` (
 #
 # Dumping data for table def
 #
+truncate table def;
 
 LOCK TABLES `def` WRITE;
 /*!40000 ALTER TABLE `def` DISABLE KEYS */;
@@ -106,6 +108,7 @@ CREATE TABLE `productline` (
 #
 # Dumping data for table productline
 #
+truncate table productline;
 
 LOCK TABLES `productline` WRITE;
 /*!40000 ALTER TABLE `productline` DISABLE KEYS */;
@@ -134,6 +137,7 @@ CREATE TABLE `tasks` (
 #
 # Dumping data for table tasks
 #
+truncate table tasks;
 
 LOCK TABLES `tasks` WRITE;
 /*!40000 ALTER TABLE `tasks` DISABLE KEYS */;

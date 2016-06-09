@@ -6,6 +6,9 @@ $def with (finished,product_line,caseinfo,definfo)
 <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 <title>zenjoy测试平台</title>
 
+
+<link rel="stylesheet" href="./static/dist/ladda-themeless.min.css">
+<link rel="stylesheet" href="./static/css/fakeLoader.css">
 <link rel="stylesheet" type="text/css" href="./static/css/theme.css" />
 <link rel="stylesheet" type="text/css" href="./static/css/style1.css" />
 <link rel="stylesheet" type="text/css" href="./static/css/tables.css" />
@@ -15,30 +18,51 @@ $def with (finished,product_line,caseinfo,definfo)
 <link rel="stylesheet" type="text/css" href="./static/css/jquery-ui-timepicker-addon.css" />
 <link rel="shortcut icon" href="./static/pic/favicon.ico">
 <link rel="stylesheet" href="./static/css/prettyCheckboxes.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="http://libs.useso.com/js/bootstrap/3.0.0/css/bootstrap.min.css">
 
 <script type="text/javascript" src="./static/js/jquery-1.7.2.min.js"></script>
 <script language=javascript type="text/javascript" src="./static/js/casehelper.js"></script>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="./static/js/fakeLoader.min.js"></script>
+
 
 <script type="text/javascript">
-  function check(){
-    var userid = document.getElementsByName("playerid");  //playerid 检测
-    if (userid[0].value==0){
-      alert("看不见  playerId  没写么？？？？")
-    return false; 
-     } 
-  }
+
+            function check(){
+              var userid = document.getElementsByName("playerid");  //playerid 检测
+              if (userid[0].value==0){
+                alert("看不见  playerId  没写么？？？？");
+              return false; 
+               } 
+            }
 </script>
 
+<script type="text/javascript">  
+
+  function ReSubmit(id){    
+
+           var product_name=document.getElementById(id).parentNode.parentNode.cells[1].innerHTML;  //从页面获取button所在行的值
+           var case_name=document.getElementById(id).parentNode.parentNode.cells[2].innerHTML;
+           var def_name=document.getElementById(id).parentNode.parentNode.cells[3].innerHTML;
+           var playerid=document.getElementById(id).parentNode.parentNode.cells[4].innerHTML;
+
+            jQuery.ajax({    //提交到web.py
+                  type:"POST", 
+                  url:"ajax_ReSubmit", 
+                  async: false,
+                  data:{"product_name": product_name,"case_name":case_name,"def_name":def_name,"playerid":playerid},
+                  success:alert("Submit ok"),
+                }) 
+            window.location.reload();
+   } 
+</script>
 
 </head>
 
 
 
 <body>
-
-
 <div id="container">
-  
         <div id="header">
             <h2>Zenjoy测试平台</h2>
     <div id="topmenu">
@@ -56,6 +80,7 @@ $def with (finished,product_line,caseinfo,definfo)
 
 <div id="box" style="padding-top: 50px;padding-left: 10px;padding-right: 10px;">
 <form id="form" onsubmit="return check()" method="POST" enctype="multipart/form-data" action="/execslot" name="myform" >
+
 项目:
 <select id='productline_id' name="productline_id">
 $for i in product_line:
@@ -66,7 +91,8 @@ $for i in product_line:
 
 
 关卡:
-<select id='case_id' name="case_id">
+<select id='case_id' name="case_id" >
+      <option selected="selected">请选择case</option>
 $for i in caseinfo:
 	<option value="$i.caseid">$i.casename</option>
 </select>
@@ -87,9 +113,14 @@ playerid: <input type="text" name="playerid" style="text-align:left" color="#fff
 </br>
 </br>
 
-<input type="submit" class="btn_style_01" bgcolor="#1C86EE" value="开   始">
+          <p>
+            <button class="btn btn-danger ladda-button" data-style="expand-left"><span class="ladda-label">开 始</span></button>
+          </p>
 
 </form>
+          <p>            
+            <button onclick="check_case()" class="btn btn-danger ladda-button" data-style="expand-right" name = "check_case"><span class="ladda-label">初始化用例（谨慎）</span></button>
+          </p>
 </div>
 
 </br>
@@ -101,8 +132,9 @@ playerid: <input type="text" name="playerid" style="text-align:left" color="#fff
                     <th>producid</th>
                     <th>caseid</th>
                     <th>defid</th>
-					<th>playerid</th>
+			<th>playerid</th>
                     <th>result</th>
+                    <th>ReSubmit</th>
                     
     				</thead>				                                                                  
   					$for todo in finished:
@@ -114,12 +146,47 @@ playerid: <input type="text" name="playerid" style="text-align:left" color="#fff
 						 <td>$todo.defname</td>
 						 <td>$todo.playerid</td>
 						 <td>$todo.result</td>
+						 <td><button type="button" onclick="ReSubmit(this.id)" id="$todo.taskid" value="$todo.taskid" >$"ReSubmit"</button></td>
   						 </tr>
   						 </tbody>
 
 	        </table>
           </div>
 
+  <script src="./static/dist/spin.min.js"></script>
+  <script src="./static/dist/ladda.min.js"></script>       
+  <script>
+
+    // Bind normal buttons
+    Ladda.bind( 'div:not(.progress-demo) button', { timeout: 2000 } );
+
+    // Bind progress buttons and simulate loading progress
+    Ladda.bind( '.progress-demo button', {
+      callback: function( instance ) {
+        var progress = 0;
+        var interval = setInterval( function() {
+          progress = Math.min( progress + Math.random() * 0.1, 1 );
+          instance.setProgress( progress );
+
+          if( progress === 1 ) {
+            instance.stop();
+            clearInterval( interval );
+          }
+        }, 200 );
+      }
+    } );
+
+    // You can control loading explicitly using the JavaScript API
+    // as outlined below:
+
+    // var l = Ladda.create( document.querySelector( 'button' ) );
+    // l.start();
+    // l.stop();
+    // l.toggle();
+    // l.isLoading();
+    // l.setProgress( 0-1 );
+
+  </script>
 
 </body>
 

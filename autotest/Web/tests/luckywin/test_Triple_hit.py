@@ -4,7 +4,6 @@
 import json
 from urllib import urlencode
 import urllib2
-from nose.tools import assert_equals
 import sys
 sys.path.append("../")
 import get_response
@@ -16,10 +15,7 @@ import ConfigParser
 # url = config.get('global', 'url')
 
 
-def test_Triple_hit(playerId,url):
-        #global playerId
-        #global url
-        #global subjectId
+def test_wild(playerId,url):
         data = {
         "playerId" : playerId,
         "subjectId":'30',
@@ -62,7 +58,6 @@ def test_Triple_hit(playerId,url):
         ]
 }
         ret_loaded = get_response.Post_response(url,data)
-        print ret_loaded
         return ret_loaded
         #assert ret_loaded[0]['panels'][0]["chips"] == 58000
         #assert_equals(ret_loaded[0]['panels'][0]["chips"] , 0,msg="chips=%s not 0" % (ret_loaded[0]['panels'][0]["chips"]))
@@ -70,9 +65,6 @@ def test_Triple_hit(playerId,url):
 
 
 def test_Respin(playerId,url):
-        #global playerId
-        #global url
-        #global subjectId
         data = {
         "playerId" : playerId,
         "subjectId":'30',
@@ -81,9 +73,13 @@ def test_Respin(playerId,url):
                 [3,1002,3],         #5 respin
                 [3,1102,3],
                 [3,1003,3]
+            ],
+            [
+                [6,3,3],         #5 respin
+                [3,3,3],
+                [6,6,3]
             ]
         ]
 }
         ret_loaded = get_response.Post_response(url,data)
-        print ret_loaded
         return ret_loaded

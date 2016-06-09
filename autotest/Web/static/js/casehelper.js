@@ -3,6 +3,9 @@ $(function(){
 	jQuery("#productline_id").change(refresh_projects);
 	//SLOT改变caseid,def改变
 	jQuery("#case_id").change(refresh_case);
+
+	//刷新case
+	jQuery("#check_case").click(checkcase);
 	
 	jQuery("#select_script_complete").click(function(){
 		//利用下拉列表选择script
@@ -55,6 +58,7 @@ $(document).ready(function(){
 	//SLOT刷新case
 	refresh_case();
 	//doProcess(jQuery("#case_type").val());
+	check_case();
 	
 	//生成脚本按钮点击操作
     jQuery("#create_script").click(function(){
@@ -175,6 +179,16 @@ function create_script_Response(data){
 	jQuery("#uploader").val(result.name + "-" + result.script_orignal_name);
   jQuery(".search-popup-window").hide("normal");
 }
+
+function check_case(){
+            jQuery.ajax({ 
+              type:"GET", 
+              url:"ajax_check_case", 
+              async: false,
+            // success:alert("添加成功"),
+              }) 
+            window.location.reload();
+       } 
 
 //SLOTSLOT传参数传参数，选择productline下拉的时候传参数吧
 function refresh_projects(){

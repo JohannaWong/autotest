@@ -50,7 +50,7 @@ class checkcase:
 					casename=filename.split(".")
 					casename=casename[0]
 					print casename
-					condb_caseid=self.condb().query("select caseid from cases where casename ='%s'" %casename)
+					condb_caseid=self.condb().query("select caseid from cases where casename ='%s' and productid = '%s'" %(casename,productid))
 					#print condb_caseid[0].caseid
 					print len(condb_caseid)
 					
@@ -88,7 +88,7 @@ class checkcase:
 				defname.append(line)
 		#遍历此case文件中所有def，如果数据库中没有的话，则insert一条
 		for dname in defname:
-			condb_defid=self.condb().query("select defid from def where defname='%s'" %dname)
+			condb_defid=self.condb().query("select defid from def where defname='%s' and caseid='%s'" %(dname,caseid))
 			#
 			if len(condb_defid)==0:
 				self.condb().insert('def',defname='%s' %dname,caseid='%d' %caseid)

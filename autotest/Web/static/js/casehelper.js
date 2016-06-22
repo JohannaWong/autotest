@@ -1,11 +1,19 @@
 $(function(){
 	//SLOT改变产品线id,项目ID改变
 	jQuery("#productline_id").change(refresh_projects);
+	//refresh_projects();
 	//SLOT改变caseid,def改变
 	jQuery("#case_id").change(refresh_case);
-
+	//refresh_case();
 	//刷新case
-	jQuery("#check_case").click(checkcase);
+	jQuery("#check_case").click(check_case);
+	//slot点击开始时执行
+	//jQuery("#exec_slot").click(ex_slot);
+	//stress点击开始执行
+	jQuery("#exec_stress").click(exec_stress);
+	jQuery("#script_id").change(function(){
+		jQuery("#show_scripterr").html("");
+	});
 	
 	jQuery("#select_script_complete").click(function(){
 		//利用下拉列表选择script
@@ -54,11 +62,13 @@ $(function(){
 
 $(document).ready(function(){
 	//SLOT刷新project list select
-	refresh_projects();
+	//refresh_projects();
 	//SLOT刷新case
-	refresh_case();
+	//refresh_case();
 	//doProcess(jQuery("#case_type").val());
-	check_case();
+	//check_case();
+
+	//exec_slot();
 	
 	//生成脚本按钮点击操作
     jQuery("#create_script").click(function(){
@@ -183,26 +193,33 @@ function create_script_Response(data){
 function check_case(){
             jQuery.ajax({ 
               type:"GET", 
-              url:"ajax_check_case", 
-              async: false,
-            // success:alert("添加成功"),
+              url:"/slot/ajax_check_case", 
+              async: true,
+              success: window.location.reload(),
               }) 
-            window.location.reload();
+           
        } 
 
 //SLOTSLOT传参数传参数，选择productline下拉的时候传参数吧
 function refresh_projects(){
+	var productname=document.getElementsByName("productline_id");	
+        if(productname[0].value=="请选择项目"){
+        	alert("请先选择项目");
+        	return false;
+
+        }
+	else{
 	jQuery("#def_id option").remove();
 	jQuery.ajax({ 
 		type:"GET", 
-		url:"ajaxgetprojects", 
+		url:"/slot/ajaxgetprojects", 
 		async: false,
 		data:"productline_id="+jQuery("#productline_id").val(), 
 		//beforeSend:select_script_loading,
 		success:refresh_projects_list
 		}) 
 	refresh_case();
-		
+	}	
 }
 
 //SlotSLOTSLOTslot响应产品线的变化，刷新project list
@@ -220,15 +237,21 @@ function refresh_projects_list(data)
 
 //SLOTSLOT传参数传参数，选择case下拉的时候传参数吧
 function refresh_case(){
+	var casename=document.getElementsByName("case_id");
+	if(casename[0].value=="请选择case"){
+        	alert("请先选择case");
+        	return false;
+        }
+    else{
 	jQuery.ajax({ 
 		type:"GET", 
-		url:"ajax_get_case", 
+		url:"/slot/ajax_get_case", 
 		async: false,
 		data:"case_id="+jQuery("#case_id").val(), 
 		//beforeSend:select_script_loading,
 		success:refresh_case_list 
 		}) 
-		
+		}
 }
 
 //SlotSLOTSLOTslot响应case的变化，刷新def
@@ -241,6 +264,152 @@ function refresh_case_list(data)
 	{
 		jQuery("#def_id").append("<option value="+result[i].defid+">"+result[i].defname+"</option>")
 	}
+}
+
+
+//SLOTajax更新数据
+function ex_slot(){
+	var userid = document.getElementsByName("playerid");  //playerid 检测
+	var productname=document.getElementsByName("productline_id");
+	var casename=document.getElementsByName("case_id");
+
+        
+        if(productname[0].value=="请选择项目"){
+        	//alert("请先选择script");
+        	jQuery("#show_product").html(" ！！请选择项目");
+        	return false;
+
+        }
+        else if(casename[0].value=="请选择case"){
+        	alert("请先选择case");
+        	return false;
+        }
+        else if (userid[0].value == 0){
+        	jQuery("#playerid").validate()
+
+           // alert("看不见  playerId  没写么？？？？");
+            return false; 
+                }
+
+        else{
+	 	jQuery.ajax({
+ 		type:"POST",
+ 		url:"/slot/execslot",
+ 		async:true,
+ 		dataType:"json",
+ 		data:{"productline_id":$("#productline_id").val(),"case_id":$("#case_id").val(),"def_id":$("#def_id").val(),"playerid":$("#playerid").val()},
+ 		success:refresh_slotresult_table
+		})
+	 }
+
+}
+
+function refresh_slotresult_table(data){
+
+	jQuery("#slotresult tbody").html("");
+	//jQuery("#slotresult tbody").remove();
+	var size = data.length;
+	 for(i=0;i<size;i++)
+	 {	
+	 		var tr=$("<tr></tr>");
+	 		var td1=$("<td>"+data[i].taskid+"</td>");
+	 		var td2=$("<td>"+data[i].productline_name+"</td>");
+	 		var td3=$("<td>"+data[i].casename+"</td>");
+	 		var td4=$("<td>"+data[i].defname+"</td>");
+	 		var td5=$("<td>"+data[i].playerid+"</td>");
+	 		var td6=$("<td>"+data[i].result+"</td>");
+	 		var td7=$("<td><button type='button' onclick='ReSubmit(this.id)' id='"+data[i].taskid+"'value='"+data[i].taskid+"'>"+"<span class='ladda-label'>ReSubmit</span><span class='ladda-spinner'></span>"+"</button></td>");
+	 		tr.append(td1);
+	 		tr.append(td2);
+	 		tr.append(td3);
+	 		tr.append(td4);
+	 		tr.append(td5);
+	 		tr.append(td6);
+	 		tr.append(td7);
+	 		jQuery("#slotresult tbody").append(tr);
+
+
+	 }
+
+
+}
+
+
+//
+function exec_stress(){
+
+	var script_id = document.getElementsByName("script_id");  //playerid 检测
+	var exec_type = document.getElementsByName("exec_type");
+	var run_counts = document.getElementsByName("run_counts");
+	var threads = document.getElementsByName("threads");
+        
+        if(script_id[0].value=="请选择script"){
+        	//alert("请先选择script");
+        	jQuery("#show_scripterr").html(" ！请先选择script");
+        	return false;
+
+        }
+
+        else if (run_counts[0].value ==0)
+        {
+        	jQuery("#run_counts").validate();
+        	return false;
+        }
+        else if (threads[0].value ==0)
+        {
+        	jQuery("#threads").validate();
+            return false; 
+         }
+         else if  (parseInt(threads[0].value)>parseInt(run_counts[0].value)){
+                alert("运行次数需要大于线程数");   
+                   return false;
+                }
+
+        else{
+        jQuery("#stress").html("执行中...请稍侯");
+        jQuery("#stress").attr("disabled", "disabled");
+
+	 	jQuery.ajax({
+ 		type:"POST",
+ 		url:"/stress/execstress",
+ 		async:true,
+ 		dataType:"json",
+ 		data:{"script_id":$("#script_id").val(),"exec_type":$("#exec_type").val(),"run_counts":$("#run_counts").val(),"threads":$("#threads").val()},
+ 		success:refresh_stressresult_table
+		})
+	 }
+
+}
+
+function refresh_stressresult_table(data){
+	jQuery("#stress").html("开   始");
+	jQuery("#stress").removeAttr("disabled");
+
+	jQuery("#stressresult tbody").html("");
+	//jQuery("#slotresult tbody").remove();
+	var size = data.length;
+	 for(i=0;i<size;i++)
+	 {	
+	 		var tr=$("<tr></tr>");
+	 		var td1=$("<td>"+data[i].id+"</td>");
+	 		var td2=$("<td>"+data[i].scriptname+"</td>");
+	 		var td3=$("<td>"+data[i].exec_set+"</td>");
+	 		var td4=$("<td>"+data[i].threadnum+"</td>");
+	 		var td5=$("<td>"+data[i].averagetime+"</td>");
+	 		var td6=$("<td>"+data[i].totaltime+"</td>");
+	 		var td7=$("<td>"+data[i].errors+"</td>");
+	 		tr.append(td1);
+	 		tr.append(td2);
+	 		tr.append(td3);
+	 		tr.append(td4);
+	 		tr.append(td5);
+	 		tr.append(td6);
+	 		tr.append(td7);
+	 		jQuery("#stressresult tbody").append(tr);
+
+
+	 }
+
 }
 
 

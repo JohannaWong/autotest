@@ -6,6 +6,28 @@ $def with (finished,product_line,caseinfo,definfo)
 <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 <title>zenjoy测试平台</title>
 
+<style type="text/css">
+<!--
+
+#content {padding:20px}
+#dialog {position:absolute; width:425px; padding:10px; z-index:200; background:#fff}
+#dialog-header {display:block; position:relative; width:411px; padding:3px 6px 7px; height:14px; font-size:14px; font-weight:bold}
+#dialog-title {float:left}
+#dialog-close {float:right; cursor:pointer; margin:3px 3px 0 0; height:11px; width:11px; background:url(../static/js/dialog_box/dialog_close.gif) no-repeat}
+#dialog-content {display:block; height:160px; padding:6px; color:#666666; font-size:13px}
+#dialog-mask {position:absolute; top:0; left:0; min-height:100%; width:100%; background:#FFF; opacity:.75; filter:alpha(opacity=75); z-index:100}
+.error {background:#fff url(error_bg.jpg) bottom right no-repeat; border:1px solid #924949; border-top:none}
+.errorheader {background:url(error_header.gif) repeat-x; color:#6f2c2c; border:1px solid #924949; border-bottom:none}
+.warning {background:#fff url(warning_bg.jpg) bottom right no-repeat; border:1px solid #c5a524; border-top:none}
+.warningheader {background:url(warning_header.gif) repeat-x; color:#957c17; border:1px solid #c5a524; border-bottom:none}
+.success {background:#fff url("../static/js/dialog_box/success_bg.jpg") bottom right no-repeat; border:1px solid #60a174; border-top:none}
+.successheader {background:url("../static/js/dialog_box/success_header.gif") repeat-x; color:#3c7f51; border:1px solid #60a174; border-bottom:none}
+.prompt {background:#fff url(prompt_bg.jpg) bottom right no-repeat; border:1px solid #4f6d81; border-top:none}
+.promptheader {background:url(prompt_header.gif) repeat-x; color:#355468; border:1px solid #4f6d81; border-bottom:none}
+
+-->
+</style>
+
 
 <link rel="stylesheet" href="./static/dist/ladda-themeless.min.css">
 <link rel="stylesheet" href="./static/css/fakeLoader.css">
@@ -21,21 +43,27 @@ $def with (finished,product_line,caseinfo,definfo)
 <link rel="stylesheet" href="http://libs.useso.com/js/bootstrap/3.0.0/css/bootstrap.min.css">
 
 <script type="text/javascript" src="./static/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="./static/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="./static/js/messages_zh.js"></script>
 <script language=javascript type="text/javascript" src="./static/js/casehelper.js"></script>
-<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-<script src="./static/js/fakeLoader.min.js"></script>
+<script language=javascript type="text/javascript" src="./static/js/dialog_box/dialog_box.js"></script>
 
 
 <script type="text/javascript">
 
-            function check(){
-              var userid = document.getElementsByName("playerid");  //playerid 检测
-              if (userid[0].value==0){
-                alert("看不见  playerId  没写么？？？？");
-              return false; 
-               } 
+           function check(){   //检查输入框
+              return false;
             }
 </script>
+
+<!-- <script type="text/javascript">
+
+          jQuery(function(){
+              jQuery("#form").validate();
+          });
+
+</script> -->
+
 
 <script type="text/javascript">  
 
@@ -46,16 +74,18 @@ $def with (finished,product_line,caseinfo,definfo)
            var def_name=document.getElementById(id).parentNode.parentNode.cells[3].innerHTML;
            var playerid=document.getElementById(id).parentNode.parentNode.cells[4].innerHTML;
 
+
             jQuery.ajax({    //提交到web.py
                   type:"POST", 
-                  url:"ajax_ReSubmit", 
+                  url:"/slot/ajax_ReSubmit", 
                   async: false,
                   data:{"product_name": product_name,"case_name":case_name,"def_name":def_name,"playerid":playerid},
-                  success:alert("Submit ok"),
                 }) 
             window.location.reload();
    } 
 </script>
+
+
 
 </head>
 
@@ -68,9 +98,9 @@ $def with (finished,product_line,caseinfo,definfo)
     <div id="topmenu">
                <ul>
                     <li class="current"><a href="slot">slot接口</a></li>
-                    <li><a href="slot2">接口测试2</a><li>
-                    <li><a href="alllink">导航</a></li>
                     <li><a href="stress">性能测试</a></li>
+                    <li><a href="hello">接口测试2</a><li>
+                    <li><a href="alllink">导航</a></li>
                </ul>
         </div>
     </div>
@@ -79,29 +109,31 @@ $def with (finished,product_line,caseinfo,definfo)
 </br>
 
 <div id="box" style="padding-top: 50px;padding-left: 10px;padding-right: 10px;">
-<form id="form" onsubmit="return check()" method="POST" enctype="multipart/form-data" action="/execslot" name="myform" >
+<form id="form" onsubmit="return check()" enctype="multipart/form-data" name="myform" >
 
 项目:
-<select id='productline_id' name="productline_id">
+<select id='productline_id' name="productline_id" class="{required:true}">
+      <option selected="selected">请选择项目</option>
 $for i in product_line:
-	<option value="$i.id">$i.productline_name</option>
+  <option value="$i.id">$i.productline_name</option>
 </select>
+<span id="show_product" style="color: red;font-weight:bold;" ></span>
 </br>
 </br>
 
 
 关卡:
-<select id='case_id' name="case_id" >
+<select id='case_id' name="case_id" class="{required:true}">
       <option selected="selected">请选择case</option>
 $for i in caseinfo:
-	<option value="$i.caseid">$i.casename</option>
+  <option value="$i.caseid">$i.casename</option>
 </select>
 </br>
 </br>
 
 
 Roll:
-<select id='def_id' name="def_id">
+<select id='def_id' name="def_id"class="{required:true}">
 $for i in definfo:
   <option value="$i.defid">$i.defname</option>
 </select>
@@ -109,48 +141,49 @@ $for i in definfo:
 </br>
 
 
-playerid: <input type="text" name="playerid" style="text-align:left" color="#ffffff" bgcolor="#FFFFFF" font-family="Microsoft YaHei, Microsoft YaHei, Microsoft YaHei" font-size="16em"><br>
+playerid: <input type="text" id="playerid" name="playerid" style="text-align:left" color="#ffffff" bgcolor="#FFFFFF" font-family="Microsoft YaHei, Microsoft YaHei, Microsoft YaHei" font-size="16em"required><br>
 </br>
 </br>
 
           <p>
-            <button class="btn btn-danger ladda-button" data-style="expand-left"><span class="ladda-label">开 始</span></button>
+            <button onclick="ex_slot()" id="exec_slot" name="exec_slot" class="btn btn-danger ladda-button" data-style="expand-left" ><span class="ladda-label">开 始</span></button>
           </p>
 
 </form>
           <p>            
-            <button onclick="check_case()" class="btn btn-danger ladda-button" data-style="expand-right" name = "check_case"><span class="ladda-label">初始化用例（谨慎）</span></button>
+            <button  onclick="check_case()" id="check_case" class="btn btn-danger ladda-button" data-style="expand-right" name ="check_case"><span class="ladda-label">初始化用例（谨慎）</span></button>
           </p>
 </div>
 
 </br>
 <br>
 <div>
-  <table border=1" class="gridtable">
+  <table border=1 class="gridtable" id="slotresult" >
                     <thead style="text-align:center">
                     <th>id</th>
                     <th>producid</th>
                     <th>caseid</th>
                     <th>defid</th>
-			<th>playerid</th>
+                    <th>playerid</th>
                     <th>result</th>
                     <th>ReSubmit</th>
                     
-    				</thead>				                                                                  
-  					$for todo in finished:
-  						 <tbody>
-  						 <tr>
-  						 <td>$todo.taskid</td>
-  						 <td>$todo.productline_name</td>
-  						 <td>$todo.casename</td>
-						 <td>$todo.defname</td>
-						 <td>$todo.playerid</td>
-						 <td>$todo.result</td>
-						 <td><button type="button" onclick="ReSubmit(this.id)" id="$todo.taskid" value="$todo.taskid" >$"ReSubmit"</button></td>
-  						 </tr>
-  						 </tbody>
+            </thead>                                                                          
 
-	        </table>
+<tbody>
+$for todo in finished:
+  <tr>
+  <td>$todo.taskid</td>
+  <td>$todo.productline_name</td>
+  <td>$todo.casename</td>
+  <td>$todo.defname</td>
+  <td>$todo.playerid</td>
+  <td>$todo.result</td>
+  <td><button type="button" onclick="ReSubmit(this.id)" id="$todo.taskid" value="$todo.taskid" >$"ReSubmit"</button></td>
+  </tr>
+</tbody>
+
+          </table>
           </div>
 
   <script src="./static/dist/spin.min.js"></script>
@@ -158,7 +191,7 @@ playerid: <input type="text" name="playerid" style="text-align:left" color="#fff
   <script>
 
     // Bind normal buttons
-    Ladda.bind( 'div:not(.progress-demo) button', { timeout: 2000 } );
+    Ladda.bind( 'div:not(.progress-demo) button', { timeout: 1000 } );
 
     // Bind progress buttons and simulate loading progress
     Ladda.bind( '.progress-demo button', {
@@ -187,6 +220,14 @@ playerid: <input type="text" name="playerid" style="text-align:left" color="#fff
     // l.setProgress( 0-1 );
 
   </script>
+
+  <div id="content">
+
+<script type="text/javascript">
+  //showDialog('Success','wahahahha_jichong.','success')
+</script>
+
+</div>
 
 </body>
 

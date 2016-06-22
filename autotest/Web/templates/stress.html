@@ -1,0 +1,167 @@
+$def with (result,script)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title>zenjoy测试平台</title>
+
+
+<link rel="stylesheet" href="./static/dist/ladda-themeless.min.css">
+<link rel="stylesheet" href="./static/css/fakeLoader.css">
+<link rel="stylesheet" type="text/css" href="./static/css/theme.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/style1.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/tables.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/file.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/case.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/jqueryui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/jquery-ui-timepicker-addon.css" />
+<link rel="shortcut icon" href="./static/pic/favicon.ico">
+<link rel="stylesheet" href="./static/css/prettyCheckboxes.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="http://libs.useso.com/js/bootstrap/3.0.0/css/bootstrap.min.css">
+
+<script type="text/javascript" src="./static/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="./static/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="./static/js/messages_zh.js"></script>
+<script language=javascript type="text/javascript" src="./static/js/casehelper.js"></script>
+<script language=javascript type="text/javascript" src="./static/js/dialog_box/dialog_box.js"></script>
+
+
+
+
+</head>
+
+
+
+<body>
+<div id="container">
+        <div id="header">
+            <h2>Zenjoy测试平台</h2>
+    <div id="topmenu">
+               <ul>
+                    <li ><a href="slot">slot接口</a></li>
+                    <li class="current"><a href="stress">性能测试</a></li>
+                    <li><a href="hello">接口测试2</a><li>
+                    <li><a href="alllink">导航</a></li>
+               </ul>
+        </div>
+    </div>
+
+</br>
+</br>
+
+<div id="box" style="padding-top: 50px;padding-left: 10px;padding-right: 10px;">
+<form id="form" onsubmit="return check()" enctype="multipart/form-data" name="myform" >
+<fieldset id="personal">
+<legend>选择脚本</legend>
+</br>
+<b>请选择脚本:</b>
+<select id="script_id" name="script_id" >
+      <option selected="selected">请选择script</option>
+          $for i in script:
+	   <option value=$i>$i</option>
+</select>
+<span id="show_scripterr" style="color: red;font-weight:bold;" ></span>
+</br>
+</br>
+</fieldset>
+
+<div id="autopython">
+<fieldset id="personal">
+<legend>运行设置</legend>
+<select id='exec_type' name='exec_type'>
+      <option value="1" selected="selected">运行次数</option>
+      <option value="2">运行时间(秒)</option>
+</select>
+：
+<input  type="text" id="run_counts" style="text-align:left" color="#ffffff" bgcolor="#FFFFFF" font-family="Microsoft YaHei, Microsoft YaHei, Microsoft YaHei" font-size="16em" name="run_counts" onkeyup="value=value.replace(/[^\d]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"required > <font color="red">*</font>
+<br />
+ &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总线程数：
+<input  type="text" id="threads" style="text-align:left" color="#ffffff" bgcolor="#FFFFFF" font-family="Microsoft YaHei, Microsoft YaHei, Microsoft YaHei" font-size="16em" name="threads" onkeyup="value=value.replace(/[^\d]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" required> <font color="red">*</font>
+<br /> 
+</fieldset>
+</div>
+
+ <p>
+ <button onclick="exec_stress()" name="stress"  id="stress"class="btn btn-danger ladda-button" data-style="expand-left"><span class="ladda-label">开 始</span></button>
+ </p>
+
+</form>
+</div>
+
+</br>
+<br>
+<div>
+  <table border=1 class="gridtable" id="stressresult" >
+                    <thead style="text-align:center">
+                    <th>id</th>
+                    <th>脚本名称</th>
+                    <th>运行设置</th>
+                    <th>并发数</th>
+                    <th>平均响应时间(s)</th>
+			<th>总用时(s)</th>
+                    <th>错误数</th>
+                    
+                    
+    				</thead>				
+        <tbody>                                                                  
+            $for todo in result:
+               
+               <tr>
+               <td>$todo.id</td>
+               <td>$todo.scriptname</td>
+               <td>$todo.exec_set</td>
+               <td>$todo.threadnum</td>
+               <td>$todo.averagetime</td>
+               <td>$todo.totaltime</td>
+               <td>$todo.errors</td>
+               </tr>
+          </tbody>
+  </table>
+  </div>
+
+  <script src="./static/dist/spin.min.js"></script>
+  <script src="./static/dist/ladda.min.js"></script>       
+  <script>
+
+    // Bind normal buttons
+    // Ladda.bind( 'div:not(.progress-demo) button', { timeout: 2000 } );
+
+    // // Bind progress buttons and simulate loading progress
+    // Ladda.bind( '.progress-demo button', {
+    //   callback: function( instance ) {
+    //     var progress = 0;
+    //     var interval = setInterval( function() {
+    //       progress = Math.min( progress + Math.random() * 0.1, 1 );
+    //       instance.setProgress( progress );
+
+    //       if( progress === 1 ) {
+    //         instance.stop();
+    //         clearInterval( interval );
+    //       }
+    //     }, 200 );
+    //   }
+    // } );
+
+    // You can control loading explicitly using the JavaScript API
+    // as outlined below:
+
+    // var l = Ladda.create( document.querySelector( 'button' ) );
+    // l.start();
+    // l.stop();
+    // l.toggle();
+    // l.isLoading();
+    // l.setProgress( 0-1 );
+
+  </script>
+
+  <script type="text/javascript">
+
+            function check(){
+              return false
+ }
+</script>
+
+</body>
+
+</html>

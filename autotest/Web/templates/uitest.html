@@ -1,0 +1,102 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title>Johanna的测试平台</title>
+
+
+<link rel="stylesheet" href="./static/dist/ladda-themeless.min.css">
+<link rel="stylesheet" href="./static/css/fakeLoader.css">
+<link rel="stylesheet" type="text/css" href="./static/css/theme.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/style1.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/tables.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/file.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/case.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/jqueryui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="./static/css/jquery-ui-timepicker-addon.css" />
+<link rel="shortcut icon" href="./static/pic/favicon.ico">
+<link rel="stylesheet" href="./static/css/prettyCheckboxes.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="http://libs.useso.com/js/bootstrap/3.0.0/css/bootstrap.min.css">
+
+<script type="text/javascript" src="./static/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="./static/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="./static/js/messages_zh.js"></script>
+<script language=javascript type="text/javascript" src="./static/js/casehelper.js"></script>
+<script language=javascript type="text/javascript" src="./static/js/dialog_box/dialog_box.js"></script>
+
+
+
+
+</head>
+
+
+
+<body>
+<div id="container">
+        <div id="header">
+            <h2>Johanna的测试平台</h2>
+    <div id="topmenu">
+               <ul>
+                    <li ><a href="slot">slot接口</a></li>
+                    <li ><a href="stress">性能测试</a></li>
+                    <li class="current"><a href="uitest">UI自动化</a><li>
+                    <li><a href="alllink">导航</a></li>
+               </ul>
+        </div>
+    </div>
+
+</br>
+</br>
+
+<div id="box" style="padding-top: 50px;padding-left: 10px;padding-right: 10px;">
+<form id="form" onsubmit="return check()" enctype="multipart/form-data" name="myform" >
+<fieldset id="personal">
+<legend>浏览器</legend>
+</br>
+<b>请选择浏览器:</b>
+<select id="webdriver" name="webdriver" >
+      <option selected="selected">chrome</option>
+      <option>firefox</option>
+</select>
+</br>
+</br>
+</fieldset>
+
+
+ <p>
+ <button onclick="exec_uitest()" name="uitest"  id="uitest" class="btn btn-danger ladda-button" data-style="expand-left"><span class="ladda-label">开 始</span></button>
+ </p>
+
+</form>
+</div>
+
+</br>
+<br>
+<div>
+  <table border=1 class="gridtable" id="uitestresult" >
+                    <thead style="text-align:center">
+                    <th>id</th>
+                    <th>运行时间</th>
+                    <th>通过数</th>
+			              <th>失败数</th>
+                    <th>查看详情</th>
+                    
+                    
+    				</thead>				
+
+  </table>
+  </div>
+
+
+  <script type="text/javascript">
+
+            function check(){
+              return false
+ }
+</script>
+
+</body>
+
+</html>

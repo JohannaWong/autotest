@@ -15,6 +15,7 @@ import json
 import server.hello_jc
 import server.slot
 import server.stress
+import server.uitest
 import Common.conlogs
 reload(sys)
 sys.setdefaultencoding("utf8")
@@ -22,7 +23,9 @@ sys.setdefaultencoding("utf8")
 urls=('/','index',
       '/hello',server.hello_jc.helloapi,
        '/slot',server.slot.slotapi,
-       '/stress',server.stress.stressapi)
+       '/stress',server.stress.stressapi,
+       '/uitest',server.uitest.uitestapi
+       )
 
 m_config = gl.GL_CONFIG
 render=web.template.render('templates/')

@@ -8,7 +8,6 @@ from time import ctime,sleep
 import web
 import Stress_test
 import Stress_test.test_cooking_tournament
-
 import ConfigParser
 reload(sys)
 sys.setdefaultencoding("utf8")
@@ -24,8 +23,6 @@ def execthreads(threadnum,myreq,myreq_target):
 	#定义thread中需要传递的target:myreq_target
 	#myreq_target=Stress_test.test_cooking_tournament.test_cooking_tournament
 	
-
-
 	threads=[]
 	thinktime=0
 
@@ -68,5 +65,5 @@ def execthreads(threadnum,myreq,myreq_target):
 	return (AverageTime,threadnum,totaltime,errors)
 
 
-if __name__=='__main__':
-	execthreads(1,myreq,myreq_target)
+# if __name__=='__main__':
+# 	execthreads(1,myreq,myreq_target)

@@ -1,7 +1,0 @@
-INFO:root:Info message
-WARNING:root:Warning message
-ERROR:root:Error message
-CRITICAL:root:Critical message
-INFO:root:wanghaha
-INFO:root:<web.utils.IterBetter instance at 0x0000000004C6CCC8>
-INFO:root:<web.utils.IterBetter instance at 0x0000000004C6CF08>

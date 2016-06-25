@@ -8,7 +8,7 @@ from collections import OrderedDict
 import time
 from time import ctime,sleep
 
-socket.setdefaulttimeout(0) 
+socket.setdefaulttimeout(300) 
 
 def Post_response(url,data):
     post_data = urllib.urlencode(data)

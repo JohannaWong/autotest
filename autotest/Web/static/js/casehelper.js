@@ -14,6 +14,9 @@ $(function(){
 	jQuery("#script_id").change(function(){
 		jQuery("#show_scripterr").html("");
 	});
+
+	//UI_test点击开始按钮
+	//jQuery("#uitest").click(exec_uitest);
 	
 	jQuery("#select_script_complete").click(function(){
 		//利用下拉列表选择script
@@ -199,6 +202,49 @@ function check_case(){
               }) 
            
        } 
+
+//UI点开始点开始点开始
+function exec_uitest(){
+	jQuery("#uitest").html("执行中...请稍候");
+	jQuery("#uitest").attr("disabled","disabled");
+	jQuery.ajax({
+		type:"POST", 
+		url:"/uitest/exec_uitest", 
+		async: true,
+		//beforeSend:select_script_loading,
+		success:refresh_uiresult_list
+	})
+}
+
+function refresh_uiresult_list(data){
+	jQuery("#uitest").html("开  始");
+	jQuery("#uitest").removeAttr("disabled");
+
+	jQuery("#uitestresult tbody").html("");
+	data = eval('(' + data + ')');	
+	//jQuery("#slotresult tbody").remove();
+	var size = data.length;
+	alert(data)
+	alert(size) 
+	 for(i=0;i<size;i++)
+	 {	
+	 		var tr=$("<tr></tr>");
+	 		var td1=$("<td>"+data[i].id+"</td>");
+	 		var td2=$("<td>"+data[i].runtime+"</td>");
+	 		var td3=$("<td>"+data[i].pass+"</td>");
+	 		var td4=$("<td>"+data[i].fail+"</td>");
+	 		var td5=$("<td>"+data[i].check+"</td>");
+	 		tr.append(td1);
+	 		tr.append(td2);
+	 		tr.append(td3);
+	 		tr.append(td4);
+	 		tr.append(td5);
+	 		jQuery("#uitestresult tbody").append(tr);
+
+	 }
+
+}
+
 
 //SLOTSLOT传参数传参数，选择productline下拉的时候传参数吧
 function refresh_projects(){

@@ -24,8 +24,8 @@ class conndb:
         cursor.close()
         Con.close()
         
-if "__main__"==__name__:
-    conn=conndb("127.0.0.1","root","111111","slot",3306)
-    sql="select * from cases"
-    conn.condb(sql)
+# if "__main__"==__name__:
+#     conn=conndb("127.0.0.1","root","111111","slot",3306)
+#     sql="select * from cases"
+#     conn.condb(sql)
     

@@ -36,11 +36,12 @@ class exec_uitest:
     def POST(self):
 
         gl.GL_WEBINPUT=web.input()
+        drivertype=gl.GL_WEBINPUT.webdriver
 
         logui=Common.conlogs.Logger('uitestlog',"INFO","uilogger")
         logui.writeLog()
         logname=logui.log_Name()
-        ui_test=UI_test.webconn.webconn()
+        ui_test=UI_test.webconn.webconn(drivertype)
         ui_test_conn=ui_test.web_conn()
         runtime=ui_test_conn[0]
         passnum=ui_test_conn[1]

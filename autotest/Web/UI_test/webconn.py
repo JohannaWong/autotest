@@ -15,17 +15,24 @@ FAIL=0
 
 #默认得安装一个火狐浏览器
 class webconn:
+	def __init__(self,drivertype):
+		self.drivertype=drivertype
+
 
 	def web_conn(self):  
 		global PASS
 		global FAIL
 		starttime=datetime.datetime.now()
 
-		chromedriver="C:\Users\wangjichong\AppData\Local\Google\Chrome\Application\chromedriver_x64.exe"
-		os.environ["webdriver.chrome.driver"]=chromedriver
-		driver=webdriver.Chrome(chromedriver)
+		if int(self.drivertype)==1:
+			chromedriver="C:\Users\wangjichong\AppData\Local\Google\Chrome\Application\chromedriver_x64.exe"
+			os.environ["webdriver.chrome.driver"]=chromedriver
+			driver=webdriver.Chrome(chromedriver)
+		elif int(self.drivertype)==2:
+			driver = webdriver.Firefox()
+		else:
+			driver = webdriver.Firefox()
 
-		#driver = webdriver.Firefox()
 
 		try:
 

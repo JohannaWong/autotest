@@ -4,9 +4,11 @@ import sys
 import os
 import code
 import re
-class checkcase:
 
+condb=web.database(dbn='mysql',user="root", pw="111111",db="slot")
+class checkcase:
 	def getdir(self):
+		global condb
 		homedir=os.getcwd()
 		homedir=os.path.join(homedir,"tests")
 		dirlist=[]
@@ -14,9 +16,9 @@ class checkcase:
 			childpath=os.path.join(homedir,pathname)			
 			if os.path.isfile(childpath)==False:
 				print childpath
-				productlist_name=self.condb().query("select id from productline where productline_name='%s'" %pathname)
+				productlist_name=condb.query("select id from productline where productline_name='%s'" %pathname)
 				if len(productlist_name)==0:
-					self.condb().insert('productline',productline_name='%s' %pathname)
+					condb.insert('productline',productline_name='%s' %pathname)
 				dirlist.append(childpath)
 
 		return dirlist
@@ -24,6 +26,7 @@ class checkcase:
 
 #以“test_”开头的case文件，属于需要读取的文件，其他文件不读
 	def getfilename(self):
+		global condb
 		dirlist=self.getdir()
 		#遍历tests文件夹下所有的项目
 		for filedir in dirlist:
@@ -31,7 +34,7 @@ class checkcase:
 			homedir=os.getcwd()
 			homedir=os.path.join(homedir,"tests")
 			dirname=filedir.replace("%s" %homedir,"").replace("\\","")
-			productid=self.condb().query("select id from productline where productline_name='%s'" %dirname)
+			productid=condb.query("select id from productline where productline_name='%s'" %dirname)
 			#productid不能保存，需要将其保存到productid中
 			for i in productid:
 				productid=int(i.id)
@@ -50,7 +53,7 @@ class checkcase:
 					casename=filename.split(".")
 					casename=casename[0]
 					print casename
-					condb_caseid=self.condb().query("select caseid from cases where casename ='%s' and productid = '%s'" %(casename,productid))
+					condb_caseid=condb.query("select caseid from cases where casename ='%s' and productid = '%s'" %(casename,productid))
 					#print condb_caseid[0].caseid
 					print len(condb_caseid)
 					
@@ -59,13 +62,13 @@ class checkcase:
 					print casefiledir
 					#如果此case文件在数据库中不存在的话，添加一条
 					if len(condb_caseid)==0:
-						self.condb().insert('cases',casename='%s' %casename,productid='%d' %productid)
-						condb_caseid=self.condb().query("select caseid from cases where casename='%s'" %casename)
+						condb.insert('cases',casename='%s' %casename,productid='%d' %productid)
+						condb_caseid=condb.query("select caseid from cases where casename='%s'" %casename)
 						for j in condb_caseid:
 							caseid=int(j.caseid)
 					    	self.getdefname(casefiledir,caseid)
 					else:
-						condb_caseid=self.condb().query("select caseid from cases where casename='%s'" %casename)
+						condb_caseid=condb.query("select caseid from cases where casename='%s'" %casename)
 						for j in condb_caseid:
 							caseid=int(j.caseid)
 							self.getdefname(casefiledir,caseid)
@@ -77,6 +80,7 @@ class checkcase:
 
 #以test开头的方法，视为合法的方法
 	def getdefname(self,filename,caseid):
+		global condb
 		defname=[]
 		fr=open(filename)
 		for line in fr.readlines():
@@ -88,10 +92,10 @@ class checkcase:
 				defname.append(line)
 		#遍历此case文件中所有def，如果数据库中没有的话，则insert一条
 		for dname in defname:
-			condb_defid=self.condb().query("select defid from def where defname='%s' and caseid='%s'" %(dname,caseid))
+			condb_defid=condb.query("select defid from def where defname='%s' and caseid='%s'" %(dname,caseid))
 			#
 			if len(condb_defid)==0:
-				self.condb().insert('def',defname='%s' %dname,caseid='%d' %caseid)
+				condb.insert('def',defname='%s' %dname,caseid='%d' %caseid)
 			else:
 				print "EEEEEEEEEEEEEEESIXT"
 
@@ -101,9 +105,9 @@ class checkcase:
 
 
 
-	def condb(self):
-		condb=web.database(dbn='mysql',user="root", pw="111111",db="slot")
-		return condb
+	# def condb(self):
+	# 	condb=web.database(dbn='mysql',user="root", pw="111111",db="slot")
+	# 	return condb
 
 
 if __name__=="__main__":

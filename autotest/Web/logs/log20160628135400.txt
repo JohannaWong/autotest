@@ -1,0 +1,20 @@
+INFO:root:open firefox driver
+INFO:root:open pythonorg homepage
+INFO:root:if the driver title has the word 'Python'
+INFO:root:fined element by name 'q'
+INFO:root:insert pycon
+INFO:root:enter
+INFO:root:make sure there is no 'No results found'
+INFO:root:success
+INFO:root:SSSSSSSLLLLLLLLLLLOOOOOOOOOOOWWWWWWWWWWWW
+INFO:root:[{"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160628135413.txt", "runtime": "58.255s", "id": 11, "pass": 1}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160628134717.txt", "runtime": "53.946s", "id": 10, "pass": 1}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160628133932.txt", "runtime": "56.378s", "id": 9, "pass": 1}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160625210053.txt", "runtime": "112.755s", "id": 8, "pass": 1}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160625204558.txt", "runtime": "157.271s", "id": 7, "pass": 4}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160625204002.txt", "runtime": "136.705s", "id": 6, "pass": 3}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160625203211.txt", "runtime": "155.49s", "id": 5, "pass": 2}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160625202737.txt", "runtime": "113.721s", "id": 4, "pass": 1}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160625202307.txt", "runtime": "155.5s", "id": 3, "pass": 2}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160625201605.txt", "runtime": "155.986s", "id": 2, "pass": 1}, {"fail": 0, "check": "uitest001.log", "runtime": "3.5s", "id": 1, "pass": 1}]
+INFO:root:open firefox driver
+INFO:root:open pythonorg homepage
+INFO:root:if the driver title has the word 'Python'
+INFO:root:fined element by name 'q'
+INFO:root:insert pycon
+INFO:root:enter
+INFO:root:make sure there is no 'No results found'
+INFO:root:success
+INFO:root:SSSSSSSLLLLLLLLLLLOOOOOOOOOOOWWWWWWWWWWWW
+INFO:root:[{"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160628135911.txt", "runtime": "15.932s", "id": 12, "pass": 1}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160628135413.txt", "runtime": "58.255s", "id": 11, "pass": 1}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160628134717.txt", "runtime": "53.946s", "id": 10, "pass": 1}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160628133932.txt", "runtime": "56.378s", "id": 9, "pass": 1}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160625210053.txt", "runtime": "112.755s", "id": 8, "pass": 1}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160625204558.txt", "runtime": "157.271s", "id": 7, "pass": 4}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160625204002.txt", "runtime": "136.705s", "id": 6, "pass": 3}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160625203211.txt", "runtime": "155.49s", "id": 5, "pass": 2}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160625202737.txt", "runtime": "113.721s", "id": 4, "pass": 1}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160625202307.txt", "runtime": "155.5s", "id": 3, "pass": 2}, {"fail": 0, "check": "..\\\\Web\\\\logs\\\\uitestlog20160625201605.txt", "runtime": "155.986s", "id": 2, "pass": 1}, {"fail": 0, "check": "uitest001.log", "runtime": "3.5s", "id": 1, "pass": 1}]

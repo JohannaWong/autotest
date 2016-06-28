@@ -34,12 +34,12 @@ class uitest:
 
 class exec_uitest:
     def POST(self):
-        print "HAAAAAAAAAAAAAAAAAAAA"
+
         gl.GL_WEBINPUT=web.input()
-        print "heeeeeeeeeeeeeeeeeeeeeeee"
-        log=Common.conlogs.Logger('uitestlog',"INFO","mylogger")
-        logname=log.log_Name()
-        log.writeLog()
+
+        logui=Common.conlogs.Logger('uitestlog',"INFO","uilogger")
+        logui.writeLog()
+        logname=logui.log_Name()
         ui_test=UI_test.webconn.webconn()
         ui_test_conn=ui_test.web_conn()
         runtime=ui_test_conn[0]
@@ -53,6 +53,7 @@ class exec_uitest:
             item_dict={"id":item.id,"runtime":item.runtime,"pass":item.passnum,"fail":item.failnum,"check":item.log}
             result.append(item_dict)
         encodedjson=json.dumps(result)
+        logging.info("SSSSSSSLLLLLLLLLLLOOOOOOOOOOOWWWWWWWWWWWW")
         logging.info(encodedjson)
         return encodedjson
 

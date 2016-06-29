@@ -224,8 +224,6 @@ function refresh_uiresult_list(data){
 	data = eval('(' + data + ')');	
 	//jQuery("#slotresult tbody").remove();
 	var size = data.length;
-	alert(data)
-	alert(size) 
 	 for(i=0;i<size;i++)
 	 {	
 	 		var tr=$("<tr></tr>");

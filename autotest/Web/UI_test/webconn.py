@@ -15,12 +15,24 @@ FAIL=0
 
 #默认得安装一个火狐浏览器
 class webconn:
+	def __init__(self,drivertype):
+		self.drivertype=drivertype
+
 
 	def web_conn(self):  
 		global PASS
 		global FAIL
 		starttime=datetime.datetime.now()
-		driver = webdriver.Firefox()
+
+		if int(self.drivertype)==1:
+			chromedriver="C:\Users\wangjichong\AppData\Local\Google\Chrome\Application\chromedriver_x64.exe"
+			os.environ["webdriver.chrome.driver"]=chromedriver
+			driver=webdriver.Chrome(chromedriver)
+		elif int(self.drivertype)==2:
+			driver = webdriver.Firefox()
+		else:
+			driver = webdriver.Firefox()
+
 
 		try:
 
@@ -45,6 +57,7 @@ class webconn:
 			FAIL=FAIL+1
 		finally:
 			driver.close()
+			driver.quit()
 
 		endtime=datetime.datetime.now()
 		totaltime=endtime-starttime
@@ -56,13 +69,13 @@ class webconn:
 		totaltime=str(totaltime)+"s"
 		return (totaltime,PASS,FAIL)
 
-if __name__=="__main__":
-	con=webconn()
-	result=con.web_conn()
-	# logging.info(result[0])
-	# logging.info(result[1])
-	# logging.info(result[2])
-	print result[0]
-	print result[1]
-	print result[2]
+# if __name__=="__main__":
+# 	con=webconn()
+# 	result=con.web_conn()
+# 	# logging.info(result[0])
+# 	# logging.info(result[1])
+# 	# logging.info(result[2])
+# 	print result[0]
+# 	print result[1]
+# 	print result[2]
 

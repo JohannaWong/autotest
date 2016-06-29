@@ -211,6 +211,7 @@ function exec_uitest(){
 		type:"POST", 
 		url:"/uitest/exec_uitest", 
 		async: true,
+		data: {"webdriver":$("#webdriver").val()},
 		//beforeSend:select_script_loading,
 		success:refresh_uiresult_list
 	})

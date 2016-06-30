@@ -7,7 +7,7 @@ import code
 import re
 import time
 
-logDir=r"..\\logs"
+logDir=r"..\\Web\\logs"
 ISOTIMEFORMAT='%Y%m%d%H%M%S'
 
 class confile:
@@ -30,11 +30,4 @@ class confile:
 		self.fc.close()
 
 
-# if __name__=="__main__":
-# 	conf=confile("jctest")
-# 	conf.getfilename()
-# 	conf.writefile("whereareyou")
-# 	conf.writefile("hellohellohellohellohellohellohello")
-# 	conf.writefile("i don't know")
-# 	conf.closefile()
 

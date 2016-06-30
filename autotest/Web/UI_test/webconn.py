@@ -10,8 +10,6 @@ import Common.conlogs
 import web
 import logging
 import datetime
-PASS=0
-FAIL=0
 
 #默认得安装一个火狐浏览器
 class webconn:
@@ -20,8 +18,8 @@ class webconn:
 
 
 	def web_conn(self):  
-		global PASS
-		global FAIL
+		PASS=0
+		FAIL=0
 		logs=[]
 		t=datetime.datetime.now()
 		starttime=datetime.datetime.now()

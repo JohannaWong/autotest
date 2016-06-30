@@ -232,7 +232,7 @@ function refresh_uiresult_list(data){
 	 		var td2=$("<td>"+data[i].runtime+"</td>");
 	 		var td3=$("<td>"+data[i].pass+"</td>");
 	 		var td4=$("<td>"+data[i].fail+"</td>");
-	 		var td5=$("<td>"+data[i].check+"</td>");
+	 		var td5=$("<td>"+"<a href='/uitest/uiresult?id="+data[i].id+"' target='_blank'>查看结果"+"</td>");
 	 		tr.append(td1);
 	 		tr.append(td2);
 	 		tr.append(td3);

@@ -21,7 +21,8 @@ reload(sys)
 sys.setdefaultencoding("utf8")
 render=web.template.render('templates/')
 urls=('',"uitest",
-      '/exec_uitest',"exec_uitest"
+      '/exec_uitest',"exec_uitest",
+      '/uiresult',"uiresult"
      )
 
 m_config = gl.GL_CONFIG
@@ -67,6 +68,11 @@ class exec_uitest:
         logging.info(encodedjson)
         return encodedjson
 
+class uiresult:
+    def GET(self):
+        uiresult=web.input()
+        print uiresult.id
+        return render.uitestresult(uiresult.id)
 
 
 

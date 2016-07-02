@@ -2,6 +2,7 @@
 import sys
 sys.path.append("..")
 import tests
+import os
 import tests.luckywin
 import tests.check_case
 import server
@@ -72,7 +73,19 @@ class uiresult:
     def GET(self):
         uiresult=web.input()
         print uiresult.id
-        return render.uitestresult(uiresult.id)
+        resultfilepath=gl.GL_DB.query("select log from uiresult where id ="+ uiresult.id)
+        for i in resultfilepath:
+            resultfilepath=i.log
+            print i.log
+
+        if os.path.exists(resultfilepath):
+            result=open(resultfilepath,'rb').read()
+            print result
+
+        else:
+            result=u"对不起，找不到文件"
+
+        return render.uitestresult(result)
 
 
 

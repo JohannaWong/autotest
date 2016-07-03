@@ -39,8 +39,8 @@ $def with (result)
                <ul>
                     <li ><a href="slot">slot接口</a></li>
                     <li ><a href="stress">性能测试</a></li>
-                    <li class="current"><a href="uitest">UI自动化</a><li>
-                    <li><a href="interfacetest">接口测试</a></li>
+                    <li ><a href="uitest">UI自动化</a><li>
+                    <li class="current"><a href="interfacetest">接口测试</a></li>
                </ul>
         </div>
     </div>
@@ -50,7 +50,7 @@ $def with (result)
 
 <div id="box" style="padding-top: 50px;padding-left: 10px;padding-right: 10px;">
 <form id="form" onsubmit="return check()" enctype="multipart/form-data" name="myform" >
-<fieldset id="personal">
+<!-- <fieldset id="personal">
 <legend>浏览器</legend>
 </br>
 <b>请选择浏览器:</b>
@@ -58,14 +58,13 @@ $def with (result)
       <option selected="selected" value=1 >chrome</option>
       <option value=2 >firefox</option>
 </select>
-<span style="color: red;font-weight:bold;" > Firefox版本过高时，不可用; Chrome浏览器需要tools文件夹下的chromedriver放到相应路径下</span>
 </br>
 </br>
-</fieldset>
+</fieldset> -->
 
 
  <p>
- <button onclick="exec_uitest()" name="uitest"  id="uitest" class="btn btn-danger ladda-button" data-style="expand-left"><span class="ladda-label">开 始</span></button>
+ <button onclick="exec_interfacetest()" name="interfacetest"  id="interfacetest" class="btn btn-danger ladda-button" data-style="expand-left"><span class="ladda-label">开 始</span></button>
  </p>
 
 </form>
@@ -73,30 +72,8 @@ $def with (result)
 
 </br>
 </br>
-<div>
-  <table border=1 class="gridtable" id="uitestresult" >
-                    <thead style="text-align:center">
-                    <th>id</th>
-                    <th>运行时间</th>
-                    <th>通过数</th>
-			              <th>失败数</th>
-                    <th>查看详情</th>
-          <tbody>
-            $for todo in result:
-              <tr>
-              <td>$todo.id</td>
-              <td>$todo.runtime</td>
-              <td>$todo.passnum</td>
-              <td>$todo.failnum</td>
-              <td><a href="/uitest/uiresult?id=$todo.id" target="_blank">查看结果</td>
-              </tr>
-          </tbody>
-                    
-                    
-    				</thead>				
 
-  </table>
-  </div>
+
 
 
   <script type="text/javascript">

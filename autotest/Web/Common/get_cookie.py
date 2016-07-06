@@ -22,10 +22,9 @@ class getcookie:
         #print session.cookies
         #print requests.utils.dict_from_cookiejar(session.cookies)
         mecookies=requests.utils.dict_from_cookiejar(session.cookies)
-        print result.headers
-        print result.content
+        #print result.headers
+        #print result.content
         return mecookies
-
 
     def getstarwork(self,mecookies):
         url="http://me.hxsd.mn/admin/goodworks/lists"
@@ -61,13 +60,40 @@ class getcookie:
         print result
         print result.content
 
+    def getcampusclass(self,mecookies):
+        url='http://me.hxsd.mn/admin/ajax/get_campus_clazz'
+        data={'campusid':"1",'userid':"2440"}
+        result=requests.post(url,data=data,cookies=mecookies)
+        print 'getcampusclass'
+        print result
+        print result.content
+
+
+    def mepost(self,url,data,mecookies):
+        result=requests.post(url,data=data,cookies=mecookies)
+        print result
+        print result.content
+        return result
+
+    def meget(self,url,mecookies):
+        result=requests.get(url,cookies=mecookies)
+        print result
+        print result.content
+        return result
+
+
+
 
 if __name__=="__main__":
     req=getcookie()
     cookie=req.melogin()
     print cookie
-    req.getstarwork(cookie)
-    req.getcampus(cookie)
-    req.getterms(cookie)
-    req.getFaculty(cookie)
-    req.getallspecialities(cookie)
+    # req.getstarwork(cookie)
+    # req.getcampus(cookie)
+    # req.getterms(cookie)
+    # req.getFaculty(cookie)
+    # req.getallspecialities(cookie)
+    # req.getcampusclass(cookie)
+    url='http://me.hxsd.mn/admin/ajax/get_campus_clazz'
+    data={'campusid':"1",'userid':"2440"}
+    req.mepost(url,data,cookie)

@@ -22,8 +22,10 @@ class getcookie:
         #print session.cookies
         #print requests.utils.dict_from_cookiejar(session.cookies)
         mecookies=requests.utils.dict_from_cookiejar(session.cookies)
+
         #print result.headers
         #print result.content
+        print mecookies['user_info']
         return mecookies
 
     def getstarwork(self,mecookies):

@@ -26,7 +26,7 @@ class webconn:
 		starttime=datetime.datetime.now()
 
 		if int(self.drivertype)==1:
-			chromedriver="C:\Users\Johanna\AppData\Local\Google\Chrome\Application\chromedriver_x64.exe"
+			chromedriver="C:\Users\wangjichong\AppData\Local\Google\Chrome\Application\chromedriver_x64.exe"
 			os.environ["webdriver.chrome.driver"]=chromedriver
 			driver=webdriver.Chrome(chromedriver)
 			logs.append("open webdriver")

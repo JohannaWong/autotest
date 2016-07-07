@@ -18,3 +18,4 @@ something about test
   
 4.xlsxwriter,xlrd
   操作excel
+  eval，将字符串转化为字典

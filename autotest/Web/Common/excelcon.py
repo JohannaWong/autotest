@@ -9,6 +9,7 @@ import Common.get_cookie
 import json
 import time
 import urllib2
+import urllib
 
 class excelcon:
 
@@ -31,62 +32,23 @@ class excelcon:
 			print url
 			print data
 			print type(data)
-#			data="{"userid":"2440","faculty_id":"6"}"
 
 			if method=='get':
 				print "********method is get"
-				# req=Common.get_cookie.getcookie()
-				# cookie=req.melogin()
-				# req.meget(url,cookie)
+				req=Common.get_cookie.getcookie()
+				cookie=req.melogin()
+				req.meget(url,cookie)
 
 
 			elif method=='post':
 				print "********method is post"
 				req=Common.get_cookie.getcookie()
 				cookie=req.melogin()
-#				data=json.loads(data)
-				print data
-#				print data.get("userid")
+				data=eval(data)
 				req.mepost(url,data,cookie)
-				#re=request('POST','http://me.hxsd.mn/admin/ajax/get_all_specialties',data)
-				#print re
+
 			else:
 				print "*****neithor get nor post"
-
-
-
-
-
-def request(method,url,data):#请求的方法
-        try:
-            #strtime = datetime.datetime.now().microsecond
-            strtime = time.time()
-            #print strtime
-            rq = urllib2.Request(url)
-            
-            rq.add_header("Content-Type","application/json")
-            
-            rq.get_method = lambda:method
-            content = urllib2.urlopen(rq,data)
-            endtime= time.time()
-            cont = content.read()
-            http_code = content.code
-            #endtime = datetime.datetime.now().microsecond
-            l =[]
-            l.append(computing_time(strtime, endtime))
-            l.append("httpcode:"+str(http_code))
-            l.append(cont)
-            return l
-            #return self.computing_time(strtime, endtime),conten,http_code
-            #return conten
-        except Exception,e:
-            return e
-
-
-def computing_time(strtime,endtime):#计算时间
-        total = endtime-strtime
-        totaltime = 'time:'+str("%.3f"%total)
-        return totaltime
 
 
 if __name__=="__main__":

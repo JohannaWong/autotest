@@ -95,5 +95,5 @@ if __name__=="__main__":
     # req.getallspecialities(cookie)
     # req.getcampusclass(cookie)
     url='http://me.hxsd.mn/admin/ajax/get_campus_clazz'
-    data={'campusid':"1",'userid':"2440"}
+    data={"campusid":"1","userid":"2440"}
     req.mepost(url,data,cookie)

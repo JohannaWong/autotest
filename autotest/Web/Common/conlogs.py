@@ -6,6 +6,7 @@ import os
 import time
 
 logDir=r"..\\Web\\logs"
+#logDir=r"..\\logs"
 logName=logDir+r"\\"+"consolg.log"
 ISOTIMEFORMAT='%Y%m%d%H%M%S'
 

@@ -16,7 +16,7 @@ sys.setdefaultencoding("utf8")
 class Action:
 
 	def __init__(self):
-			chromedriver="C:\Users\Johanna\AppData\Local\Google\Chrome\Application\chromedriver_x64.exe"
+			chromedriver="C:\Users\wangjichong\AppData\Local\Google\Chrome\Application\chromedriver_x64.exe"
 			os.environ["webdriver.chrome.driver"]=chromedriver
 			self.driver=webdriver.Chrome(chromedriver)
 			logging.info("open webdriver")

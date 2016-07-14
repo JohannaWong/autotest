@@ -16,38 +16,105 @@ sys.setdefaultencoding("utf8")
 class Action:
 
 	def __init__(self):
-			chromedriver="C:\Users\wangjichong\AppData\Local\Google\Chrome\Application\chromedriver_x64.exe"
+		try:
+			chromedriver="C:\Users\Johanna\AppData\Local\Google\Chrome\Application\chromedriver_x64.exe"
 			os.environ["webdriver.chrome.driver"]=chromedriver
 			self.driver=webdriver.Chrome(chromedriver)
 			logging.info("open webdriver")
+			self.driver.maximize_window()
+		except Exception,e:
+			logging.error("=====================")
+			logging.error(u"浏览器启动失败！")
+			logging.error("=====================")
 
 	def get(self,url):
-		print "url"+url
-		logging.info(u"打开链接"+url)
-		self.driver.get(url)
+		try:
+			logging.info(u"打开链接"+url)
+			self.driver.get(url)
+		except Exception,e:
+			logging.error("====================")
+			logging.error(u"访问链接失败: "+url)
+			logging.error("====================")
 
 
 	def sendkeys(self,xpath,keys):
-		logging.info(u"操作：赋值")
-		logging.info(u"xpath:"+xpath)
-		logging.info(u"赋值为："+keys)
-		self.driver.find_element_by_xpath(xpath).send_keys(keys)
+		try:
+			logging.info(u"操作：赋值")
+			logging.info(u"xpath:"+xpath)
+			location=self.driver.find_element_by_xpath(xpath)
+		except Exception,e:
+			logging.error("=====================")
+			logging.error(u"赋值xpath操作失败："+xpath)
+			logging.error("=====================")
+		try:
+			logging.info(u"赋值为："+keys)
+			location.send_keys(keys)
+		except Exception,e:
+			logging.error("======================")
+			logging.error(u"赋值失败："+keys)
+			logging.error("======================")
 
 	def click(self,xpath):
-		logging.info(u"操作：点击")
-		logging.info(u"xpath:"+xpath)
-		self.driver.find_element_by_xpath(xpath).click()
+		try:
+			logging.info(u"操作：点击")
+			logging.info(u"xpath:"+xpath)
+			location=self.driver.find_element_by_xpath(xpath)
+		except Exception,e:
+			logging.error("=====================")
+			logging.error(u"赋值xpath操作失败："+xpath)
+			logging.error("=====================")
+		try:
+			location.click()
+		except Exception,e:
+			logging.error("=====================")
+			logging.error(u"点击失败！")
+			logging.error("=====================")
 
-	def getresult(self):
-		time.sleep(2)
-		logging.info(u"操作：获取结果")
-		#logging.info(u"xpath:"+xpath)
-		result=self.driver.find_element_by_class_name("nums").text
-		logging.info(u"结果为："+result)
+
+	def gettext(self,xpath):
+		try:
+			logging.info(u"操作：获取文本")
+			logging.info(u"xpath:"+xpath)
+			location=self.driver.find_element_by_xpath(xpath)
+		except Exception,e:
+			logging.error("=====================")
+			logging.error(u"赋值xpath操作失败："+xpath)
+			logging.error("=====================")
+		try:
+			text=location.text
+			logging.info(u"获取值成功，值为:"+location.text)
+		except Exception,e:
+			logging.error("====================")
+			logging.error(u"获取文本失败")
+			logging.error("====================")
+
+
+
+	def getattribute(self,xpath,keys)
+		try:
+			logging.info(u"操作：获取元素属性")
+			logging.info(u"xpath:"+xpath)
+			location=self.driver.find_element_by_xpath(xpath)
+		except Exception,e:
+			logging.error("=====================")
+			logging.error(u"赋值xpath操作失败："+xpath)
+			logging.error("=====================")
+		try:
+			text=location.get_attribute(keys)
+			logging.info(u"获取值成功，值为:"+text)
+		except Exception,e:
+			logging.error("====================")
+			logging.error(u"获取文本失败")
+			logging.error("====================")
 
 	def closedriver(self):
-		self.driver.close()
-		self.driver.quit()
+		try:
+			self.driver.close()
+			self.driver.quit()
+		except Exception,e:
+			logging.error("=====================")
+			logging.error(u"浏览器关闭成功")
+			logging.error("=====================")
 
 
 if __name__=="__main__":

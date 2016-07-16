@@ -23,7 +23,8 @@ sys.setdefaultencoding("utf8")
 render=web.template.render('templates/')
 urls=('',"uitest",
       '/exec_uitest',"exec_uitest",
-      '/uiresult',"uiresult"
+      '/uiresult',"uiresult",
+      '/upload',"upload"
      )
 
 m_config = gl.GL_CONFIG
@@ -86,6 +87,36 @@ class uiresult:
             result=u"对不起，找不到文件"
 
         return render.uitestresult(result)
+
+
+
+class upload:
+    def GET(self):
+        web.header("Content-Type","text/html; charset=utf-8")
+        return """<html><head></head><body>
+<span style="color: red;font-weight:bold;" >注意暂时不要上传中文文件</a></span>
+<br/>
+<br/>
+<form method="POST" enctype="multipart/form-data" action="">
+<input type="file" name="myfile" />
+<br/>
+<br/>
+<input type="submit" />
+</form>
+</body></html>"""
+
+    def POST(self):
+        x = web.input(myfile={})
+        print u"***************当前路径**********"
+        print os.getcwd()
+        filedir = './UI_test/upload' # change this to the directory you want to store the file in.
+        if 'myfile' in x: # to check if the file-object is created
+            filepath=x.myfile.filename.replace('\\','/') # replaces the windows-style slashes with linux ones.
+            filename=filepath.split('/')[-1] # splits the and chooses the last part (the filename with extension)
+            fout = open(filedir +'/'+ filename,'w') # creates the file where the uploaded file should be stored
+            fout.write(x.myfile.file.read()) # writes the uploaded file to the newly created file.
+            fout.close() # closes the file, upload complete.
+        raise web.seeother("../uitest")
 
 
 

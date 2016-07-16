@@ -34,17 +34,22 @@ class Logger():
 		ch.setLevel(logLevel)
 	#创建一个handler，用于写入日志文件，handler可以把日志内容写到不同的路径下
 
-		fh=logging.FileHandler(self.logName,'w')
-		fh.setLevel("WARNING")
+		fh=logging.FileHandler(self.logName,'w+')
+		fh.setLevel("INFO")
 		# 设置日志打印格式
 		formatter = logging.Formatter('%(name)-12s: %(levelname)-8s %(message)s')
-		logging.basicConfig(filename=self.logName,filemode="w")
+		logging.basicConfig(filename=self.logName,filemode="w+")
 		
 		ch.setFormatter(formatter)
 		fh.setFormatter(formatter)
 # 将定义好的console日志handler添加到root logger
 		self.logger.addHandler(fh)
 		self.logger_ch.addHandler(ch)
+		self.logger.debug("debug message")
+		self.logger.info("info message")
+		self.logger.warn("warn message")
+		self.logger.error("error message")
+		self.logger.critical("critical message")
 
 
 	def writeLog(self):

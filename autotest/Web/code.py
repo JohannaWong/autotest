@@ -59,8 +59,6 @@ if __name__=="__main__":
    # _init_case()
     _init_config()
     _init_web_component()
-    log=Common.conlogs.Logger('log',"INFO","mylogger")
-    log.writeLog()
     app=web.application(urls,globals())
     app.run()
 

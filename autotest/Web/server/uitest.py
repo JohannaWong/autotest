@@ -16,6 +16,8 @@ import MySQLdb
 import json
 import logging
 import UI_test
+import shutil
+from shutil import copy
 
 
 reload(sys)
@@ -32,31 +34,31 @@ m_config = gl.GL_CONFIG
 class uitest:
     def GET(self):
         result=gl.GL_DB.query("select * from uiresult order by id desc")
-        print "hahahahahahuitestuitestuiterst"
-        return render.uitest(result)
+        Dir='./UI_test/upload'
+        filename=[]
+        for file in os.listdir(Dir):
+            filename.append(file)
+        print filename
+
+        return render.uitest(result,filename)
 
 class exec_uitest:
     def POST(self):
 
         gl.GL_WEBINPUT=web.input()
-        drivertype=gl.GL_WEBINPUT.webdriver
+        drivertype=int(gl.GL_WEBINPUT.webdriver)
+        excelname=gl.GL_WEBINPUT.excelname
+        print drivertype
+        print excelname
 
-        uilog=Common.confile.confile("uitestlog")
-        logname=uilog.getfilename()
-        str="i can't do it,sorry!\n"
-        ui_test=UI_test.webconn.webconn(drivertype)
+        ui_test=UI_test.execuiexcel.execuiexcel(drivertype,excelname)
         ui_test_conn=ui_test.web_conn()
+
         runtime=ui_test_conn[0]
         passnum=ui_test_conn[1]
         failnum=ui_test_conn[2]
-        logs=ui_test_conn[3]
-        logging.info(logs)
+        logname=ui_test_conn[3]
 
-        for i in logs:
-            str=str+i+'\n'
-
-        uilog.writefile(str)
-        uilog.closefile()
 
         gl.GL_DB.insert("uiresult",runtime=runtime,passnum=passnum,failnum=failnum,log=logname)
 
@@ -107,19 +109,17 @@ class upload:
 
     def POST(self):
         x = web.input(myfile={})
-        print u"***************当前路径**********"
         print os.getcwd()
         filedir = './UI_test/upload' # change this to the directory you want to store the file in.
         if 'myfile' in x: # to check if the file-object is created
             filepath=x.myfile.filename.replace('\\','/') # replaces the windows-style slashes with linux ones.
+            print filepath
             filename=filepath.split('/')[-1] # splits the and chooses the last part (the filename with extension)
-            fout = open(filedir +'/'+ filename,'w') # creates the file where the uploaded file should be stored
+            fout = open(filedir +'/'+ filename,'wb') # creates the file where the uploaded file should be stored
             fout.write(x.myfile.file.read()) # writes the uploaded file to the newly created file.
             fout.close() # closes the file, upload complete.
+        #shutil.copy(x.myfile.file.read(),filedir)
         raise web.seeother("../uitest")
-
-
-
 
 
 

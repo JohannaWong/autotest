@@ -15,6 +15,10 @@ $(function(){
 		jQuery("#show_scripterr").html("");
 	});
 
+	jQuery("#uicase").change(function(){
+		jQuery("#show_excelerror").html("")
+	})
+
 	//UI_test点击开始按钮
 	//jQuery("#uitest").click(exec_uitest);
 	
@@ -205,16 +209,26 @@ function check_case(){
 
 //UI点开始点开始点开始
 function exec_uitest(){
+	var excelname = document.getElementsByName("uicase");
+        
+        if(excelname[0].value=="1"){
+        	//alert("请先选择script");
+        	jQuery("#show_excelerror").html(" ！请先选择要执行的excel用例");
+        	return false;
+
+        }
+        else{
 	jQuery("#uitest").html("执行中...请稍候");
 	jQuery("#uitest").attr("disabled","disabled");
 	jQuery.ajax({
 		type:"POST", 
 		url:"/uitest/exec_uitest", 
 		async: true,
-		data: {"webdriver":$("#webdriver").val()},
+		data: {"webdriver":$("#webdriver").val(),"excelname":$("#uicase").val()},
 		//beforeSend:select_script_loading,
 		success:refresh_uiresult_list
 	})
+}
 }
 
 function refresh_uiresult_list(data){
@@ -536,12 +550,12 @@ function select_script_Response(data)
 function ajaxFileUpload()
 {
 		
-			if(jQuery("#custom_script_name").val()==""){sAlert("请选择自定义脚本名");
+			if(jQuery("#custom_script_name").val()==""){alert("请选择自定义脚本名");
 			jQuery("#custom_script_name").focus();
     		return false;
    		}
 		
-			if(jQuery("#autopy_script_file").val()==""){sAlert("请选择上传脚本");
+			if(jQuery("#autopy_script_file").val()==""){alert("请选择上传脚本");
 			jQuery("#autopy_script_file").focus();
     		return false;
    		}
@@ -558,11 +572,11 @@ function ajaxFileUpload()
 		jQuery.ajaxFileUpload
 		(
 			{
-				url:'ajaxuploadautopyscript', 
+				url:'ajaxuploadautoscript', 
 				secureuri:false,
 				fileElementId:'autopy_script_file',
 				dataType: 'json',
-				data:{project_id:jQuery("#project_id").val(), custom_script_name:jQuery("#custom_script_name").val()},
+				data:{custom_script_name:jQuery("#custom_script_name").val()},
 				//data:[{'name':"project_id","value":jQuery("#project_id").val()},{"name":"custom_script_name","value":jQuery("#custom_script_name").val()}],
 				success: function (data, status)
 				{

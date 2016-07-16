@@ -1,4 +1,4 @@
-$def with (result)
+$def with (result,filename)
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -26,6 +26,8 @@ $def with (result)
 <script type="text/javascript" src="./static/js/messages_zh.js"></script>
 <script language=javascript type="text/javascript" src="./static/js/casehelper.js"></script>
 <script language=javascript type="text/javascript" src="./static/js/dialog_box/dialog_box.js"></script>
+<script language=javascript type="text/javascript" src="./static/js/ajaxfileupload.js"></script>
+
 
 
 </head>
@@ -72,15 +74,14 @@ $def with (result)
 <b>要执行的case:</b>
 <select id="uicase" name="uicase" >
       <option selected="selected" value=1 >请选择要执行的case</option>
-      <option value=2 >baidu_search</option>
+  $for fname in filename:
+      <option value=$fname >$fname</option>
 </select>
+<span id="show_excelerror" style="color: red;font-weight:bold;text-decoration:underline;" ></span>
 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <a href="/uitest/upload"><span style="color: red;font-weight:bold;text-decoration:underline;" >点击此处，上传新case</span></a>
 </br>
 </br>
-</fieldset>
-
-
 
  <p>
  <button onclick="exec_uitest()" name="uitest"  id="uitest" class="btn btn-danger ladda-button" data-style="expand-left"><span class="ladda-label">开 始</span></button>

@@ -26,7 +26,7 @@ urls=('/','index',
        '/slot',server.slot.slotapi,
        '/stress',server.stress.stressapi,
        '/uitest',server.uitest.uitestapi,
-       '/interfacetest',server.interfacetest.interfacetestapi
+       '/interfacetest',server.interfacetest.interfacetestapi,
        )
 
 m_config = gl.GL_CONFIG
@@ -34,7 +34,7 @@ render=web.template.render('templates/')
 
 class index:
     def GET(self):
-        return render.hello("Hello World!")
+        return render.hello()
     
 #wy的slot项目
 

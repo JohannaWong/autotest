@@ -1,4 +1,5 @@
 $def with (result)
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -49,8 +50,11 @@ $def with (result)
 </br>
 
 <div id="box" style="padding-top: 50px;padding-left: 10px;padding-right: 10px;">
+<span style="color: blue;font-weight:bold;" >使用前，请先   <a type="text/javascript" href="./static/download/uiautotest.xlsx"  _target="blank"><span style="color:red; font-weight:bold;text-decoration:underline;">下载模板</span></span>
+</br>
+</br>
 <form id="form" onsubmit="return check()" enctype="multipart/form-data" name="myform" >
-<fieldset id="personal">
+<fieldset id="driverchoose">
 <legend>浏览器</legend>
 </br>
 <b>请选择浏览器:</b>
@@ -59,6 +63,17 @@ $def with (result)
       <option value=2 >firefox</option>
 </select>
 <span style="color: red;font-weight:bold;" > Firefox版本过高时，不可用; Chrome浏览器需要tools文件夹下的chromedriver放到相应路径下</span>
+</br>
+</br>
+</fieldset>
+<fieldset id="uicasechoose">
+<legend>UIcase</legend>
+</br>
+<b>要执行的case:</b>
+<select id="uicase" name="uicase" >
+      <option selected="selected" value=1 >请选择要执行的case</option>
+      <option value=2 >baidu_search</option>
+</select>
 </br>
 </br>
 </fieldset>

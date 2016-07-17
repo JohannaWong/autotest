@@ -18,9 +18,6 @@ class getcookie:
         data="username=qiuzhaokun&password=qiuzhaokun"
 
         result=session.post(loginurl,data=data1)
-
-        #print session.cookies
-        #print requests.utils.dict_from_cookiejar(session.cookies)
         mecookies=requests.utils.dict_from_cookiejar(session.cookies)
 
         #print result.headers

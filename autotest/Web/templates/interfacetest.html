@@ -1,4 +1,4 @@
-$def with (result)
+$def with (result,filename)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -50,17 +50,34 @@ $def with (result)
 
 <div id="box" style="padding-top: 50px;padding-left: 10px;padding-right: 10px;">
 <form id="form" onsubmit="return check()" enctype="multipart/form-data" name="myform" >
-<!-- <fieldset id="personal">
-<legend>浏览器</legend>
+<fieldset id="personal">
+<legend>获取cookie</legend>
 </br>
-<b>请选择浏览器:</b>
-<select id="webdriver" name="webdriver" >
-      <option selected="selected" value=1 >chrome</option>
-      <option value=2 >firefox</option>
+<input type="radio" name="getcookis" value="1" checked="checked" /><b>不需要cookies</b>
+</br>
+<input type="radio" name="getcookis" value="2" /><b>login接口获取cookie</b>
+</br>
+<input type="radio" name="getcookis" value="3" /><b>UI输入用户名密码获取cookie</b>
+</br> 
+<input type="radio" name="getcookis" value="4" /><b>手动输入cookie</b>
+</br>
+</br>
+</fieldset>
+<fieldset id="interfacecasechoose">
+<legend>接口case</legend>
+</br>
+<b>要执行的case:</b>
+<select id="interfacecase" name="interfacecase" >
+      <option selected="selected" value=1 >请选择要执行的case</option>
+  $for fname in filename:
+      <option value=$fname >$fname</option>
 </select>
+<span id="show_excelerror" style="color: red;font-weight:bold;text-decoration:underline;" ></span>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="/interfacetest/upload"><span style="color: red;font-weight:bold;text-decoration:underline;" >点击此处，上传新case</span></a>
 </br>
 </br>
-</fieldset> -->
+</fieldset>
 
 
  <p>

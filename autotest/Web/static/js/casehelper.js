@@ -19,6 +19,7 @@ $(function(){
 		jQuery("#show_excelerror").html("")
 	})
 
+
 	//UI_test点击开始按钮
 	//jQuery("#uitest").click(exec_uitest);
 	
@@ -206,6 +207,42 @@ function check_case(){
               }) 
            
        } 
+
+//interfacetest点开始点开始点开始
+function exec_interfacetest(){
+	var getcookiename = document.getElementsByName("getcookis");
+	alert(getcookiename[0].value)
+	var getexcelname = document.getElementsByName("interfacecase")
+        
+        if(getexcelname[0].value=="1"){
+        	//alert("请先选择script");
+        	jQuery("#show_excelerror").html(" ！请先选择要执行的excel用例");
+        	return false;
+
+        }
+        else{
+	jQuery("#interfacetest").html("执行中...请稍候");
+	jQuery("#interfacetest").attr("disabled","disabled");
+	jQuery.ajax({
+		type:"POST", 
+		url:"/interfacetest/exec_interfacetest", 
+		async: true,
+		data: {"getcookis":getcookiename[0].value,"excelname":$("#interfacecase").val()},
+		//beforeSend:select_script_loading,
+		success:refresh_interfaceresult_list
+	})
+}
+}
+
+function refresh_interfaceresult_list(){
+	jQuery("#interfacetest").html("开  始");
+	jQuery("#interfacetest").removeAttr("disabled");
+
+
+}
+
+
+
 
 //UI点开始点开始点开始
 function exec_uitest(){

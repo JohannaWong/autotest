@@ -27,6 +27,7 @@ urls=('/','index',
        '/stress',server.stress.stressapi,
        '/uitest',server.uitest.uitestapi,
        '/interfacetest',server.interfacetest.interfacetestapi,
+       '/noseapitest',server.noseapitest.noseapitestapi
        )
 
 m_config = gl.GL_CONFIG

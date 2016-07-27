@@ -1,10 +1,10 @@
-$def with (finished,product_line,caseinfo,definfo)
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
-<title>Johanna的测试平台</title>
+<title>zenjoy测试平台</title>
 
 <style type="text/css">
 <!--
@@ -65,26 +65,6 @@ $def with (finished,product_line,caseinfo,definfo)
 </script> -->
 
 
-<script type="text/javascript">  
-
-  function ReSubmit(id){    
-
-           var product_name=document.getElementById(id).parentNode.parentNode.cells[1].innerHTML;  //从页面获取button所在行的值
-           var case_name=document.getElementById(id).parentNode.parentNode.cells[2].innerHTML;
-           var def_name=document.getElementById(id).parentNode.parentNode.cells[3].innerHTML;
-           var playerid=document.getElementById(id).parentNode.parentNode.cells[4].innerHTML;
-
-
-            jQuery.ajax({    //提交到web.py
-                  type:"POST", 
-                  url:"/slot/ajax_ReSubmit", 
-                  async: false,
-                  data:{"product_name": product_name,"case_name":case_name,"def_name":def_name,"playerid":playerid},
-                }) 
-            window.location.reload();
-   } 
-</script>
-
 
 
 </head>
@@ -94,14 +74,14 @@ $def with (finished,product_line,caseinfo,definfo)
 <body>
 <div id="container">
         <div id="header">
-            <h2>Johanna的测试平台</h2>
+            <h2>Zenjoy测试平台</h2>
     <div id="topmenu">
                <ul>
-                    <li class="current"><a href="slot">slot接口</a></li>
-                    <li><a href="stress">性能测试</a></li>
-                    <li><a href="uitest">UI自动化</a><li>
-                    <li><a href="interfacetest">接口测试</a></li>
-                    <li ><a href="noseapitest">noseAPI测试</a></li>
+                    <li ><a href="slot">slot接口</a></li>
+                    <li ><a href="stress">性能测试</a></li>
+                    <li ><a href="uitest">UI自动化</a><li>
+                    <li ><a href="interfacetest">接口测试</a></li>
+                    <li class="current"><a href="noseapitest">noseAPI测试</a></li>
                </ul>
         </div>
     </div>
@@ -112,87 +92,30 @@ $def with (finished,product_line,caseinfo,definfo)
 <div id="box" style="padding-top: 50px;padding-left: 10px;padding-right: 10px;">
 <form id="form" onsubmit="return check()" enctype="multipart/form-data" name="myform" >
 
-项目:
-<select id='productline_id' name="productline_id" class="{required:true}">
-      <option selected="selected">请选择项目</option>
-$for i in product_line:
-  <option value="$i.id">$i.productline_name</option>
-</select>
-<span id="show_product" style="color: red;font-weight:bold;" ></span>
-</br>
-</br>
 
-
-关卡:
-<select id='case_id' name="case_id" class="{required:true}">
-      <option selected="selected">请选择case</option>
-$for i in caseinfo:
-  <option value="$i.caseid">$i.casename</option>
-</select>
-</br>
-</br>
-
-
-Roll:
-<select id='def_id' name="def_id"class="{required:true}">
-$for i in definfo:
-  <option value="$i.defid">$i.defname</option>
-</select>
-</br>
-</br>
-
-
-playerid: <input type="text" id="playerid" name="playerid" style="text-align:left" color="#ffffff" bgcolor="#FFFFFF" font-family="Microsoft YaHei, Microsoft YaHei, Microsoft YaHei" font-size="16em"required><br>
-</br>
-</br>
-
-          <p>
-            <button onclick="ex_slot()" id="exec_slot" name="exec_slot" class="btn btn-danger ladda-button" data-style="expand-left" ><span class="ladda-label">开 始</span></button>
+            <button onclick="ex_nosetestapi()" id="exec_noseapitest" name="exec_noseapitest" class="btn btn-danger ladda-button" data-style="expand-left" ><span class="ladda-label">开 始</span></button>
           </p>
 
 </form>
+
           <p>            
-            <button  onclick="check_case()" id="check_case" class="btn btn-danger ladda-button" data-style="expand-right" name ="check_case"><span class="ladda-label">初始化用例（谨慎）</span></button>
+            <img id="loading" src="">
+            <a id="noseresult" href="/noseapitest/nosetestresult?id=1" target="_blank"><b>查看结果
           </p>
 </div>
 
 </br>
 <br>
 <div>
-  <table border=1 class="gridtable" id="slotresult" >
-                    <thead style="text-align:center">
-                    <th>id</th>
-                    <th>producid</th>
-                    <th>caseid</th>
-                    <th>defid</th>
-                    <th>playerid</th>
-                    <th>result</th>
-                    <th>ReSubmit</th>
-                    
-            </thead>                                                                          
 
-<tbody>
-$for todo in finished:
-  <tr>
-  <td>$todo.taskid</td>
-  <td>$todo.productline_name</td>
-  <td>$todo.casename</td>
-  <td>$todo.defname</td>
-  <td>$todo.playerid</td>
-  <td>$todo.result</td>
-  <td><button type="button" onclick="ReSubmit(this.id)" id="$todo.taskid" value="$todo.taskid" >$"ReSubmit"</button></td>
-  </tr>
-</tbody>
-
-          </table>
           </div>
 
   <script src="./static/dist/spin.min.js"></script>
   <script src="./static/dist/ladda.min.js"></script>       
-  <script>
+ <script>
 
     // Bind normal buttons
-    Ladda.bind( 'div:not(.progress-demo) button', { timeout: 1000 } );
+/*    Ladda.bind( 'div:not(.progress-demo) button', { timeout: 1000 } );
 
     // Bind progress buttons and simulate loading progress
     Ladda.bind( '.progress-demo button', {
@@ -208,7 +131,7 @@ $for todo in finished:
           }
         }, 200 );
       }
-    } );
+    } );*/
 
     // You can control loading explicitly using the JavaScript API
     // as outlined below:

@@ -242,6 +242,30 @@ function refresh_interfaceresult_list(){
 }
 
 
+//NOSETESTAPI-20160727
+function ex_nosetestapi(){
+	    jQuery("#exec_noseapitest").html("执行中...请稍侯");
+        jQuery("#exec_noseapitest").attr("disabled", "disabled");
+        jQuery("#loading").attr("src","./static/pic/Loading1.jpg");
+        jQuery("#noseresult").html("")
+
+	 	jQuery.ajax({
+ 		type:"GET",
+ 		url:"/noseapitest/execnoseapitest",
+ 		async:true,
+		success:refresh_execstress
+		})
+}
+
+function refresh_execstress(){
+	jQuery("#exec_noseapitest").html("开   始");
+	jQuery("#exec_noseapitest").removeAttr("disabled");
+	jQuery("#loading").attr("src","");
+	jQuery("#noseresult").html("<b>查看结果")
+
+}
+
+
 
 
 //UI点开始点开始点开始

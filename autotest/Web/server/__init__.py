@@ -3,3 +3,4 @@ import slot
 import stress
 import uitest
 import interfacetest
+import noseapitest

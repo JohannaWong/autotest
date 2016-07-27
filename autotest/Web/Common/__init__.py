@@ -9,3 +9,4 @@ import get_cookie
 import pythread
 import confile
 import excelcon
+import nose_html

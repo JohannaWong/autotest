@@ -38,3 +38,4 @@ something about test
   a. 需要测试的文件放在nose_tests文件夹下，要执行的子文件夹们必须有‘test'字样
   b. nose_tests文件夹及子文件夹不允许增加__init__.py文件，否则 nosetests执行时会报错。
   c. 生成的结果result.html，存放在nose_tests文件夹下。
+  

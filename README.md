@@ -21,3 +21,20 @@ something about test
 4.xlsxwriter,xlrd
   操作excel
   eval，将字符串转化为字典
+  
+5. nose测试，生成html文件，方便查看
+  安装nosehtmloutput插件：pip install nose-htmloutput
+  调用：
+文件头导入：
+  from nose_htmloutput import HtmlOutput
+  import nose_htmloutput
+文件中使用：
+	homedir="./nose_tests/"
+	result=homedir+"result.html"
+	output='./nose_tests/'
+	os.system("nosetests -v -s --with-html --html-file="+result+" " +output)
+
+  nose使用注意事项：
+  a. 需要测试的文件放在nose_tests文件夹下，要执行的子文件夹们必须有‘test'字样
+  b. nose_tests文件夹及子文件夹不允许增加__init__.py文件，否则 nosetests执行时会报错。
+  c. 生成的结果result.html，存放在nose_tests文件夹下。

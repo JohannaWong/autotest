@@ -29,9 +29,7 @@ $def with (result,filename)
 <script language=javascript type="text/javascript" src="./static/js/ajaxfileupload.js"></script>
 
 
-
 </head>
-
 
 
 <body>
@@ -80,13 +78,24 @@ $def with (result,filename)
 </select>
 <span id="show_excelerror" style="color: red;font-weight:bold;text-decoration:underline;" ></span>
 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="/uitest/upload"><span style="color: red;font-weight:bold;text-decoration:underline;" >点击此处，上传新case</span></a>
+<!-- <a href="/uitest/upload"><span style="color: red;font-weight:bold;text-decoration:underline;" >点击此处，上传新case</span></a> -->
+
+
 </br>
 </br>
 
  <p>
  <button onclick="exec_uitest()" name="uitest"  id="uitest" class="btn btn-danger ladda-button" data-style="expand-left"><span class="ladda-label">开 始</span></button>
  </p>
+</fieldset>
+
+<fieldset>
+<legend>上传用例</legend>
+<br>
+<input id="file1" type="file" size="10" class="input" name="file">
+<br>
+<button  id="buttonUpload" onclick="ajaxFileUpload();" class="btn btn-danger ladda-button" data-style="expand-left" ><span class="ladda-label">上传case</span></button>
+</fieldset>
 
 </form>
 </div>

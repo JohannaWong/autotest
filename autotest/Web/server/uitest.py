@@ -36,8 +36,10 @@ class uitest:
         result=gl.GL_DB.query("select * from uiresult order by id desc")
         Dir='./UI_test/upload'
         filename=[]
-        for file in os.listdir(Dir):
-            filename.append(file)
+        for f_file in os.listdir(Dir):
+            print "namenamenamenamename:"+f_file
+            filename.append(f_file)
+        print "filenamefilename:"
         print filename
 
         return render.uitest(result,filename)
@@ -93,33 +95,24 @@ class uiresult:
 
 
 class upload:
-    def GET(self):
-        web.header("Content-Type","text/html; charset=utf-8")
-        return """<html><head></head><body>
-<span style="color: red;font-weight:bold;" >注意暂时不要上传中文文件</a></span>
-<br/>
-<br/>
-<form method="POST" enctype="multipart/form-data" action="">
-<input type="file" name="myfile" />
-<br/>
-<br/>
-<input type="submit" />
-</form>
-</body></html>"""
 
     def POST(self):
-        x = web.input(myfile={})
-        print os.getcwd()
+        x = web.input()
         filedir = './UI_test/upload' # change this to the directory you want to store the file in.
-        if 'myfile' in x: # to check if the file-object is created
-            filepath=x.myfile.filename.replace('\\','/') # replaces the windows-style slashes with linux ones.
-            print filepath
-            filename=filepath.split('/')[-1] # splits the and chooses the last part (the filename with extension)
-            fout = open(filedir +'/'+ filename,'wb') # creates the file where the uploaded file should be stored
-            fout.write(x.myfile.file.read()) # writes the uploaded file to the newly created file.
+        if 'file' in x: # to check if the file-object is created
+            filepath=x.uicase.replace('\\','/') # replaces the windows-style slashes with linux ones.
+            ffilename=filepath.split('/')[-1] # splits the and chooses the last part (the filename with extension)
+            fout = open(filedir +'/'+ ffilename,'wb') # creates the file where the uploaded file should be stored
+
+            fout.write(x.file) # writes the uploaded file to the newly created file.
             fout.close() # closes the file, upload complete.
         #shutil.copy(x.myfile.file.read(),filedir)
-        raise web.seeother("../uitest")
+        
+
+        ui=uitest()
+        ui.GET()
+
+        return 1
 
 
 

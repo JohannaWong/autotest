@@ -19,6 +19,9 @@ $(function(){
 		jQuery("#show_excelerror").html("")
 	})
 
+	// jQuery("#buttonUpload").click(ajaxFileUpload)
+
+
 
 	//UI_test点击开始按钮
 	//jQuery("#uitest").click(exec_uitest);
@@ -611,53 +614,29 @@ function select_script_Response(data)
 function ajaxFileUpload()
 {
 		
-			if(jQuery("#custom_script_name").val()==""){alert("请选择自定义脚本名");
-			jQuery("#custom_script_name").focus();
-    		return false;
-   		}
-		
-			if(jQuery("#autopy_script_file").val()==""){alert("请选择上传脚本");
-			jQuery("#autopy_script_file").focus();
-    		return false;
-   		}
-		/*
-			prepareing ajax file upload
-			url: the url of script file handling the uploaded files
-                        fileElementId: the file type of input element id and it will be the index of  $_FILES Array()
-			dataType: it support json, xml
-			secureuri:use secure protocol
-			success: call back function when the ajax complete
-			error: callback function when the ajax failed
-			
-                */
+
 		jQuery.ajaxFileUpload
 		(
-			{
-				url:'ajaxuploadautoscript', 
+			{	type:"POST",
+				url:'uitest/upload', 
 				secureuri:false,
-				fileElementId:'autopy_script_file',
+				fileElementId:'file1',
 				dataType: 'json',
-				data:{custom_script_name:jQuery("#custom_script_name").val()},
+				data:{uicase:$("#file1").val()},
 				//data:[{'name':"project_id","value":jQuery("#project_id").val()},{"name":"custom_script_name","value":jQuery("#custom_script_name").val()}],
-				success: function (data, status)
-				{
-					//设置隐藏的script_id
-					messaga_return = data.msg;
-					result = eval('(' + messaga_return + ')');
-					jQuery("#script_id").val(result.script_id);
-					script_name = result.name+"-"+result.script_orignal_name;
-					jQuery("#uploader").val(script_name);
-					jQuery("#TB_SRP_DIALOG").hide("normal");
+				success: function(data,status){
+					alert("success!")
+					window.location.reload();
 				},
 				error: function (data, status, e)
 				{
 					alert(e);
 				}
 			}
-		)
+		);
 		
-		return false;
 }
+
 
 //创建AUTOpy 测试用例之前进行数据正确性的验证
 function checkpost()

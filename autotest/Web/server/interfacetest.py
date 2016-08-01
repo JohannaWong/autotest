@@ -13,6 +13,7 @@ import json
 import MySQLdb
 import json
 import logging
+import interfacetest
 
 
 reload(sys)
@@ -44,10 +45,8 @@ class exec_interfacetest:
         print gl.GL_WEBINPUT
         print gl.GL_WEBINPUT.getcookis
         print gl.GL_WEBINPUT.excelname
-        Dir='./interfacetest/upload'
-        filename=[]
-        for file in os.listdir(Dir):
-            filename.append(file)
+        req=interfacetest.execinterfaceexcel.excelcon()
+        req.excon()
 
         # if gl.GL_WEBINPUT.getcookis=='1':
             

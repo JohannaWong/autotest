@@ -27,7 +27,8 @@ urls=('/','index',
        '/stress',server.stress.stressapi,
        '/uitest',server.uitest.uitestapi,
        '/interfacetest',server.interfacetest.interfacetestapi,
-       '/noseapitest',server.noseapitest.noseapitestapi
+       '/noseapitest',server.noseapitest.noseapitestapi,
+       '/zjpostman',server.zjpostman.zjpostmanapi
        )
 
 m_config = gl.GL_CONFIG

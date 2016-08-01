@@ -26,7 +26,7 @@ class Action:
 		self.logname=self.log.getfilename()
 
 		if int(self.drivertype)==1:
-			chromedriver="C:\Users\wangjichong\AppData\Local\Google\Chrome\Application\chromedriver_x64.exe"
+			chromedriver=os.popen("echo %appdata%").readlines()[0].split("Roaming")[0]+'Local\Google\Chrome\Application\chromedriver_x64.exe'
 			os.environ["webdriver.chrome.driver"]=chromedriver
 			self.driver=webdriver.Chrome(chromedriver)
 		elif int(self.drivertype)==2:

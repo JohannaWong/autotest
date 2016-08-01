@@ -107,8 +107,6 @@ class upload:
             fout.write(x.file) # writes the uploaded file to the newly created file.
             fout.close() # closes the file, upload complete.
         #shutil.copy(x.myfile.file.read(),filedir)
-        
-
         ui=uitest()
         ui.GET()
 

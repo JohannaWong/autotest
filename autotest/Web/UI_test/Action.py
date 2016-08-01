@@ -9,10 +9,12 @@ from Common import *
 import Common.conlogs
 import web
 import logging
+import time
 import datetime
 reload(sys)
 sys.setdefaultencoding("utf8")
-
+ISOTIMEFORMAT='%Y-%m-%d %H:%M:%S'
+t=time.strftime( ISOTIMEFORMAT, time.localtime() )
 
 class Action:
 
@@ -24,7 +26,7 @@ class Action:
 		self.logname=self.log.getfilename()
 
 		if int(self.drivertype)==1:
-			chromedriver="C:\Users\Johanna\AppData\Local\Google\Chrome\Application\chromedriver_x64.exe"
+			chromedriver="C:\Users\wangjichong\AppData\Local\Google\Chrome\Application\chromedriver_x64.exe"
 			os.environ["webdriver.chrome.driver"]=chromedriver
 			self.driver=webdriver.Chrome(chromedriver)
 		elif int(self.drivertype)==2:
@@ -33,11 +35,11 @@ class Action:
 			self.driver = webdriver.Firefox()
 		time.sleep(2)
 		try:
-			self.log.writefile("open webdriver")
+			self.log.writefile(t+" open webdriver")
 			self.driver.maximize_window()
 		except Exception,e:
 			self.log.writefile("=====================")
-			self.log.writefile(u"ERROR:浏览器启动失败！")
+			self.log.writefile(t+u" ERROR:浏览器启动失败！")
 			self.log.writefile("=====================")
 
 	def getfilename(self):
@@ -45,12 +47,12 @@ class Action:
 
 	def get(self,xpath,keys):
 		try:
-			self.log.writefile(u"打开链接"+keys)
+			self.log.writefile(t+u" 打开链接"+keys)
 			self.driver.get(keys)
 			result='pass'
 		except Exception,e:
 			self.log.writefile("====================")
-			self.log.writefile(u"ERROR:访问链接失败: "+keys)
+			self.log.writefile(t+u" ERROR:访问链接失败: "+keys)
 			self.log.writefile("====================")
 			result='fail'
 		return result
@@ -58,44 +60,44 @@ class Action:
 
 	def sendkeys(self,xpath,keys):
 		try:
-			self.log.writefile(u"操作：赋值")
-			self.log.writefile(u"xpath:"+xpath)
+			self.log.writefile(t+u" 操作：赋值")
+			self.log.writefile(t+u" xpath:"+xpath)
 			location=self.driver.find_element_by_xpath(xpath)
 			result='pass'
 		except Exception,e:
 			self.log.writefile("=====================")
-			self.log.writefile(u"ERROR:赋值xpath操作失败："+xpath)
+			self.log.writefile(t+u" ERROR:赋值xpath操作失败："+xpath)
 			self.log.writefile("=====================")
 			result='true'
 		try:
-			self.log.writefile(u"赋值为："+keys)
+			self.log.writefile(t+u" 赋值为："+keys)
 			location.send_keys(keys)
 			result='pass'
 		except Exception,e:
 			self.log.writefile("======================")
-			self.log.writefile(u"ERROR:赋值失败："+keys)
+			self.log.writefile(t+u" ERROR:赋值失败："+keys)
 			self.log.writefile("======================")
 			result='fail'
 		return result
 
 	def click(self,xpath,keys):
 		try:
-			self.log.writefile(u"操作：点击")
-			self.log.writefile(u"xpath:"+xpath)
+			self.log.writefile(t+u" 操作：点击")
+			self.log.writefile(t+u" xpath:"+xpath)
 			location=self.driver.find_element_by_xpath(xpath)
 			result='pass'
 		except Exception,e:
 			self.log.writefile("=====================")
-			self.log.writefile(u"ERROR:赋值xpath操作失败："+xpath)
+			self.log.writefile(t+u" ERROR:赋值xpath操作失败："+xpath)
 			self.log.writefile("=====================")
 			result='fail'
 		try:
-			self.log.writefile("点击成功")
+			self.log.writefile(t+" 点击成功")
 			location.click()
 			result='pass'
 		except Exception,e:
 			self.log.writefile("=====================")
-			self.log.writefile(u"ERROR:点击失败！")
+			self.log.writefile(t+u" ERROR:点击失败！")
 			self.log.writefile("=====================")
 			result='true'
 		return result
@@ -104,23 +106,23 @@ class Action:
 	def gettext(self,xpath,keys):
 		try:
 			time.sleep(2)
-			self.log.writefile(u"操作：获取文本")
-			self.log.writefile(u"xpath:"+xpath)
+			self.log.writefile(t+u" 操作：获取文本")
+			self.log.writefile(t+u" xpath:"+xpath)
 			location=self.driver.find_element_by_xpath(xpath)
 			result='pass'
 		except Exception,e:
 			self.log.writefile("=====================")
-			self.log.writefile(u"ERROR:赋值xpath操作失败："+xpath)
+			self.log.writefile(t+u" ERROR:赋值xpath操作失败："+xpath)
 			self.log.writefile("=====================")
 			result='fail'
 		try:
 			text=location.text
-			self.log.writefile(u"获取值成功，值为:"+location.text)
+			self.log.writefile(t+u" 获取值成功，值为:"+location.text)
 			print text
 			result='pass'
 		except Exception,e:
 			self.log.writefile("====================")
-			self.log.writefile(u"ERROR:获取文本失败")
+			self.log.writefile(t+u" ERROR:获取文本失败")
 			self.log.writefile("====================")
 			result='fail'
 		return result
@@ -129,22 +131,22 @@ class Action:
 
 	def getattribute(self,xpath,keys):
 		try:
-			self.log.writefile(u"操作：获取元素属性")
-			self.log.writefile(u"xpath:"+xpath)
+			self.log.writefile(t+u" 操作：获取元素属性")
+			self.log.writefile(t+u" xpath:"+xpath)
 			location=self.driver.find_element_by_xpath(xpath)
 			result='pass'
 		except Exception,e:
 			self.log.writefile("=====================")
-			self.log.writefile(u"ERROR:赋值xpath操作失败："+xpath)
+			self.log.writefile(t+u" ERROR:赋值xpath操作失败："+xpath)
 			self.log.writefile("=====================")
 			result='fail'
 		try:
 			text=location.get_attribute(keys)
-			self.log.writefile(u"获取值成功，值为:"+text)
+			self.log.writefile(t+u" 获取值成功，值为:"+text)
 			result='pass'
 		except Exception,e:
 			self.log.writefile("====================")
-			self.log.writefile(u"ERROR:获取文本失败")
+			self.log.writefile(t+u" ERROR:获取文本失败")
 			self.log.writefile("====================")
 			result='fail'
 		return result
@@ -154,11 +156,11 @@ class Action:
 			time.sleep(2)
 
 			assert keys in self.driver.title
-			self.log.writefile("断言成功，title中存在 :"+keys)
+			self.log.writefile(t+u" 断言成功，title中存在 :"+keys)
 			result='pass'
 		except:
 			self.log.writefile("====================")
-			self.log.writefile(u"ERROR:断言失败，title中不存在:"+keys)
+			self.log.writefile(t+u" ERROR:断言失败，title中不存在:"+keys)
 			self.log.writefile("====================")
 			result='fail'
 		return result
@@ -166,11 +168,11 @@ class Action:
 	def element_displayed(self,xpath,keys):
 		try:
 			display=self.driver.find_element_by_xpath(xpath).is_displayed()
-			self.log.writefile("元素正常显示"+xpath)
+			self.log.writefile(t+" 元素正常显示"+xpath)
 			result='pass'
 		except:
 			self.log.writefile("=======================")
-			self.log.writefile(u"ERROR:元素"+xpath+":"+display)
+			self.log.writefile(t+u" ERROR:元素"+xpath+":"+display)
 			self.log.writefile("=======================")
 			result='fail'
 		return result
@@ -184,7 +186,7 @@ class Action:
 			self.log.closefile()
 		except Exception,e:
 			self.log.writefile("=====================")
-			self.log.writefile(u"ERROR:浏览器关闭失败")
+			self.log.writefile(t+u" ERROR:浏览器关闭失败")
 			self.log.writefile("=====================")
 
 

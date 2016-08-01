@@ -29,7 +29,6 @@ m_config = gl.GL_CONFIG
 
 class slot:
     def GET(self):
-        print "HAHAHAHAHAHAHAHA"
         conn=Common.dbconn.conndb("127.0.0.1","root","111111","slot",3306)
         finished=gl.GL_DB.query('select * from tasks order by taskid desc;')
         sql=("select tasks.taskid as taskid,productline.productline_name as productline_name,"
@@ -123,17 +122,22 @@ class execslot:
                 def_id = item.defid
                 print def_name
                 try:
-                    f = getattr(getattr(getattr(tests, project_name), case_name), def_name) 
+                    f = getattr(getattr(getattr(tests, project_name), case_name), def_name)
                     result = f(player_id,test_url)
+                except Exception,e: 
+                    result="Error:%s" % e
+                finally:
                     gl.GL_DB.insert('tasks',productid=gl.GL_WEBINPUT.productline_id,caseid=gl.GL_WEBINPUT.case_id,defid=def_id,playerid=gl.GL_WEBINPUT.playerid,result=result)
-                    pass
-                except Exception, e:
-                    print e
 
         else:
-            f = getattr(getattr(getattr(tests, project_name), case_name), def_name)      #从tests文件夹里选取项目，case以及def
-            result = f(player_id,test_url)
-            print "l o V e U~"
+            try:
+              f = getattr(getattr(getattr(tests, project_name), case_name), def_name)      #从tests文件夹里选取项目，case以及def
+              result = f(player_id,test_url)
+              print "l o V e U~"
+            except Exception,e:
+              result="Error:%s" % e
+            finally:
+              pass
             productline_id=gl.GL_DB.query("select id from productline where productline_name='%s'" %project_name)
 
             for i in productline_id:
@@ -158,8 +162,14 @@ class execslot:
         case_name = self.get_case_name(gl.GL_WEBINPUT.case_id)       #case脚本名
         def_name = self.get_def_name(gl.GL_WEBINPUT.def_id)         #case中对应函数名
         player_id = self.get_playerid()               #玩家id
+        try:
+          self.do_case(project_name,case_name,def_name,player_id)
 
-        self.do_case(project_name,case_name,def_name,player_id)
+        except Exception,e:
+          print "error:%s " % e
+          
+        finally:
+          pass
         #raise web.seeother('../slot') 
         sql=("select tasks.taskid as taskid,productline.productline_name as productline_name,"
              "cases.casename as casename,def.defname as defname,tasks.playerid as playerid,tasks.result as result "

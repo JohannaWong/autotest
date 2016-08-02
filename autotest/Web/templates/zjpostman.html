@@ -1,4 +1,4 @@
-$def with (result,filename)
+$def with (product_line)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -40,9 +40,9 @@ $def with (result,filename)
                     <li ><a href="slot">slot接口</a></li>
                     <li ><a href="stress">性能测试</a></li>
                     <li ><a href="uitest">UI自动化</a><li>
-                    <li class="current"><a href="interfacetest">接口测试</a></li>
-                    <li ><a href="noseapitest">noseAPI测试</a></li>
-                    <li ><a href="zjpostman">zjpostman</a></li>
+                    <li ><a href="interfacetest">接口测试</a></li>
+                    <li ><a href="noseapitest">noseAPI测试</a></li>\
+                    <li class="current"><a href="zjpostman">zjpostman</a></li>
                </ul>
         </div>
     </div>
@@ -53,37 +53,41 @@ $def with (result,filename)
 <div id="box" style="padding-top: 50px;padding-left: 10px;padding-right: 10px;">
 <form id="form" onsubmit="return check()" enctype="multipart/form-data" name="myform" >
 <fieldset id="personal">
-<legend>获取cookie</legend>
+<legend>数据输入</legend>
 </br>
-<input type="radio" name="getcookis" value="1" checked="checked" /><b>不需要cookies</b>
+项目:
+<select id='productline_id' name="productline_id" class="{required:true}">
+      <option selected="selected">请选择项目</option>
+$for i in product_line:
+  <option value="$i.id">$i.productline_name</option>
+</select>
+<font color="red">*</font>
+<span id="show_product" style="color: red;font-weight:bold;" ></span>
+<br>
+<br>
+Playerid:
+<input  type="text" id="playerid" style="text-align:left" color="#ffffff" bgcolor="#FFFFFF" font-family="Microsoft YaHei, Microsoft YaHei, Microsoft YaHei" font-size="16em" name="playerid" onkeyup="value=value.replace(/[^\d]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" required> <font color="red">*</font>
+Subjectid:
+<input  type="text" id="subjectid" style="text-align:left" color="#ffffff" bgcolor="#FFFFFF" font-family="Microsoft YaHei, Microsoft YaHei, Microsoft YaHei" font-size="16em" name="subjectid" onkeyup="value=value.replace(/[^\d]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" required> <font color="red">*</font>
 </br>
-<input type="radio" name="getcookis" value="2" /><b>login接口获取cookie</b>
-</br>
-<input type="radio" name="getcookis" value="3" /><b>UI输入用户名密码获取cookie</b>
+data:
+<textarea id="postdata" name="postdata" style="width:500px;height:200px;"  onfocus="if(value=='默认格式  [3,1000,3],[3,1000,3],[3,1000,3]，请知晓'){value=''}"  
+    onblur="if (value ==''){value='默认格式  [3,1000,3],[3,1000,3],[3,1000,3]，请知晓'}">默认格式  [3,1000,3],[3,1000,3],[3,1000,3]，请知晓</textarea>
 </br> 
-<input type="radio" name="getcookis" value="4" /><b>手动输入cookie</b>
+<br>
+ <button onclick="exec_zjpostman()" name="zjpostmantest"  id="zjpostmantest" class="btn btn-danger ladda-button" data-style="expand-left"><span class="ladda-label">开 始</span></button>
 </br>
 </br>
 </fieldset>
 <fieldset id="interfacecasechoose">
-<legend>接口case</legend>
-</br>
-<b>要执行的case:</b>
-<select id="interfacecase" name="interfacecase" >
-      <option selected="selected" value=1 >请选择要执行的case</option>
-  $for fname in filename:
-      <option value=$fname >$fname</option>
-</select>
-<span id="show_excelerror" style="color: red;font-weight:bold;text-decoration:underline;" ></span>
-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<a href="/interfacetest/upload"><span style="color: red;font-weight:bold;text-decoration:underline;" >点击此处，上传新case</span></a>
+<legend>查看结果</legend>
+<span id="show_result" style="font-weight:bold;text-decoration:underline;" ></span>
+
 </br>
 </br>
 </fieldset>
 
 
- <p>
- <button onclick="exec_interfacetest()" name="interfacetest"  id="interfacetest" class="btn btn-danger ladda-button" data-style="expand-left"><span class="ladda-label">开 始</span></button>
  </p>
 
 </form>

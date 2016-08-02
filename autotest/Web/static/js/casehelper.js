@@ -53,7 +53,8 @@ $(function(){
 			}) 
 			}
 	);
-    
+
+
 
     jQuery(".closeButton").click(function(){
          //jQuery("#TB_SRP_DIALOG").hide("normal");
@@ -210,6 +211,32 @@ function check_case(){
               }) 
            
        } 
+
+//zjpostman点开始
+function exec_zjpostman(){
+		var productname=document.getElementsByName("productline_id");	
+        if(productname[0].value=="请选择项目"){
+        	alert("请先选择项目");
+        	return false;
+        }
+		// var post_url=document.getElementsByName("url");
+		// var post_data=document.getElementsByName("postdata");
+		else{
+		jQuery("#zjpostmantest").html("执行中...请稍候");
+		jQuery("#zjpostmantest").attr("disabled","disabled");
+		jQuery.ajax({
+			type:"POST",
+			url:"/zjpostman/exec_zjpostman",
+			async:true,
+			data:{"productline_id":$("#productline_id").val(),"playerid":$("#playerid").val(),"subjectid":$("#subjectid").val(),"postdata":$("#postdata").val()},
+			success:function(data,status){
+					jQuery("#zjpostmantest").html("开始");
+					jQuery("#zjpostmantest").removeAttr("disabled");
+					jQuery("#show_result").html(data);
+				}
+		})
+	}
+}
 
 //interfacetest点开始点开始点开始
 function exec_interfacetest(){

@@ -1,0 +1,57 @@
+$def with (all_text,project_name,case_name)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>$case_name</title>
+  <style type="text/css">
+    body {
+        overflow: hidden;
+
+    }
+    
+    #editor { 
+        margin: 0;
+        position: absolute;
+        top: 30px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+  </style>
+
+<script type="text/javascript" src="../static/ace/ace.js" charset="utf-8"></script>
+<script type="text/javascript" src="../static/ace/theme-tomorrow_night.js"></script>
+<script type="text/javascript" src="../static/ace/mode-python.js"></script>
+<script type="text/javascript" src="./static/js/jquery-1.7.2.min.js"></script>
+<script language=javascript type="text/javascript" src="./static/js/casehelper.js"></script>
+</head>
+
+
+<body>
+<form id="form" enctype="multipart/form-data" name="myform" >
+
+       <button id="save_file" onclick="get_session_value();return false;"><span class="ladda-label">保存</span></button>
+<span id="show_error" style="color: red;font-weight:bold;" ></span>
+
+<input type="hidden" value="$all_text" id="getValue">
+<div id="editor">
+
+</div>
+</form>  
+
+<script>
+    var editor = ace.edit("editor");
+    var file_Value;
+    //editor.setTheme("ace/theme/tomorrow_night");
+    editor.setTheme("ace/theme/xcode");
+    editor.getSession().setMode("ace/mode/python");
+    var values = document.getElementById("getValue").value
+    editor.setValue(values)
+    document.getElementById('editor').style.fontSize='18px'; 
+
+</script>
+
+</body>
+</html>

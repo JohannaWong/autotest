@@ -513,7 +513,6 @@ function get_session_value(){
 
 	    var file_Value;
 	    file_Value=editor.getSession().getValue(); 
-
                 jQuery.ajax({    //提交到web.py
                   type:"POST", 
                   url:"/case_editor/AJAX_Save_file", 
@@ -526,6 +525,7 @@ function get_session_value(){
                   	if(data=="1"){
                   		jQuery("#show_error").html("");
                   		alert("保存成功");
+                  		location.reload();
                   	}
                   	else{
                   		jQuery("#show_error").html("错误"+data);

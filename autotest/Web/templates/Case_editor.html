@@ -47,8 +47,9 @@ $def with (all_text,project_name,case_name)
     //editor.setTheme("ace/theme/tomorrow_night");
     editor.setTheme("ace/theme/xcode");
     editor.getSession().setMode("ace/mode/python");
-    var values = document.getElementById("getValue").value
-    editor.setValue(values)
+    var values = document.getElementById("getValue").value;
+    editor.setValue(values);
+    editor.gotoLine(1);
     document.getElementById('editor').style.fontSize='18px'; 
 
 </script>

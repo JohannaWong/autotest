@@ -465,7 +465,7 @@ function refresh_slotresult_table(data){
 	 		var td1=$("<td>"+data[i].taskid+"</td>");
 	 		var td2=$("<td>"+data[i].productline_name+"</td>");
 	 		var td3=$("<td>"+data[i].casename+"</td>");
-	 		var td4=$("<td>"+data[i].defname+"</td>");
+	 		var td4=$("<td><a href='javascript:getfile('"+data[i].taskid+"')'"+ " style='color:blue;text-decoration:blue;text-decoration:underline;' target='_blank' id='"+data[i].taskid+"'value='"+data[i].taskid+"'>"+data[i].defname+"</a></td>")
 	 		var td5=$("<td>"+data[i].playerid+"</td>");
 	 		var td6=$("<td>"+data[i].result+"</td>");
 	 		var td7=$("<td><button type='button' onclick='ReSubmit(this.id)' id='"+data[i].taskid+"'value='"+data[i].taskid+"'>"+"<span class='ladda-label'>ReSubmit</span><span class='ladda-spinner'></span>"+"</button></td>");
@@ -484,6 +484,56 @@ function refresh_slotresult_table(data){
 
 }
 
+//slot点击编辑文件
+ function getfile(id){    
+
+            jQuery.ajax({    //提交到web.py
+                  type:"GET", 
+                  url:"/case_editor/check_file", 
+                  async: false,
+                  dataType:"json",
+	     data:{"taskid": id},
+                  success:function(data){
+                  	  if(data =="0")
+		           {
+		           	alert("没有找到此文件");
+		           	return false;
+		          }
+		          else{
+		          	//location.href="/case_editor?taskid="+data;
+		          	window.open("/case_editor?taskid="+data,  "height=100, width=400, toolbar =no, menubar=no,scrollbars=no, resizable=no, location=no, status=no");
+
+		          }
+		 }
+                }) 
+   } 
+
+//保存文件
+function get_session_value(){
+
+	    var file_Value;
+	    file_Value=editor.getSession().getValue(); 
+
+                jQuery.ajax({    //提交到web.py
+                  type:"POST", 
+                  url:"/case_editor/AJAX_Save_file", 
+                  async: false,
+                  dataType:"json",
+                  //data:{"product_name": $("#product_name").val(),"case_name":$("#case_name").val(),"def_name":$("#def_name").val(),"playerid":$("#playerid").val()},
+                  data:{"file_Value": file_Value},
+                  //success:alert("保存成功")
+                  success:function(data){
+                  	if(data=="1"){
+                  		jQuery("#show_error").html("");
+                  		alert("保存成功");
+                  	}
+                  	else{
+                  		jQuery("#show_error").html("错误"+data);
+                  	}
+
+                  }
+                }) 
+}
 
 //
 function exec_stress(){

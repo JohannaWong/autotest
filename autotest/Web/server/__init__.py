@@ -5,3 +5,4 @@ import uitest
 import interfacetest
 import noseapitest
 import zjpostman
+import editor

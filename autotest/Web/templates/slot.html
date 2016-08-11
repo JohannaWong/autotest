@@ -178,7 +178,7 @@ $for todo in finished:
   <td>$todo.taskid</td>
   <td>$todo.productline_name</td>
   <td>$todo.casename</td>
-  <td>$todo.defname</td>
+  <td><a href="javascript:getfile($todo.taskid)"   id="$todo.taskid" value="$todo.taskid" style="color:blue;text-decoration:blue;text-decoration:underline;" target="_blank">$todo.defname</a></td>
   <td>$todo.playerid</td>
   <td>$todo.result</td>
   <td><button type="button" onclick="ReSubmit(this.id)" id="$todo.taskid" value="$todo.taskid" >$"ReSubmit"</button></td>

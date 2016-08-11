@@ -28,7 +28,8 @@ urls=('/','index',
        '/uitest',server.uitest.uitestapi,
        '/interfacetest',server.interfacetest.interfacetestapi,
        '/noseapitest',server.noseapitest.noseapitestapi,
-       '/zjpostman',server.zjpostman.zjpostmanapi
+       '/zjpostman',server.zjpostman.zjpostmanapi,
+       '/case_editor',server.editor.editorapi
        )
 
 m_config = gl.GL_CONFIG
